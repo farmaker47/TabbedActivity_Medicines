@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TabbedActivity_Medicines</string>
+    <string name="onomasiaProiontos">Medicine\'s name</string>
+    <string name="tab_text_2">Tab 2</string>
+</resources>
