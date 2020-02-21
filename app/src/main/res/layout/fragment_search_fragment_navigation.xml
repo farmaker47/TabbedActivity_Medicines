@@ -13,14 +13,22 @@
         android:background="#fff"
         android:orientation="vertical">
 
+        <WebView
+            android:id="@+id/webViewEof"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/autoSearchNavigation"
+            android:visibility="invisible" />
+
+
         <com.george.tabbedactivity_medicines.ui.utils.ClearableAutoComplete2
             android:id="@+id/autoSearchNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="44dp"
-            android:drawablePadding="10dp"
             android:background="@drawable/auto_border"
+            android:drawablePadding="10dp"
             android:hint="@string/search_autocomplete_fragment_hint"
+            android:minHeight="44dp"
             android:padding="16dp" />
 
         <ImageView
@@ -42,13 +50,13 @@
             android:id="@+id/progressSearchFragment"
             android:layout_width="@dimen/progressBar"
             android:layout_height="@dimen/progressBar"
+            android:layout_below="@id/autoSearchNavigation"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
-            android:visibility="invisible"
             android:indeterminate="true"
-            android:layout_below="@id/autoSearchNavigation"
+            android:indeterminateTint="@color/colorBlue"
             android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/colorBlue"/>
+            android:visibility="invisible" />
 
 
     </RelativeLayout>

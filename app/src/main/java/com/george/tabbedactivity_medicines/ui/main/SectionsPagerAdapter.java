@@ -27,7 +27,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a NameFragment (defined as a static inner class below).
 
         if(position==0){
-            return NameFragment.newInstance(position + 1);
+            return SearchFragmentNavigation.newInstance("ena");
         }else{
             return NameFragment.newInstance(position + 2);
         }

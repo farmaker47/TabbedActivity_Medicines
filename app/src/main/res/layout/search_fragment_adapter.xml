@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:transitionName="@string/transition_photo"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1" />
 
@@ -25,6 +24,7 @@
             android:id="@+id/textViewFragmentAdapter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="12"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"

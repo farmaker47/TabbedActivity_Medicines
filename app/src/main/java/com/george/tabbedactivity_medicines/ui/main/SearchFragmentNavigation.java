@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.JsonReader;
+import android.util.JsonToken;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +22,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.ValueCallback;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,6 +32,13 @@ import com.george.tabbedactivity_medicines.R;
 import com.george.tabbedactivity_medicines.ui.utils.ClearableAutoComplete2;
 import com.george.tabbedactivity_medicines.ui.utils.SoloupisEmptyRecyclerView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,14 +75,18 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     private Parcelable savedRecyclerLayoutState;
     private Context context;
 
-    private static final String ATC = "atc";
+    /*private static final String ATC = "atc";
     private static final String COMPANY = "company";
     private static final String DRUG = "drug";
     private static final String CITATION = "citation";
     private static final String ICD10 = "icd10";
     private static final String SUBSTANCE = "substance";
     private static final String PACKAGE = "package";
-    private static final String SUPPLEMENT = "supplement";
+    private static final String SUPPLEMENT = "supplement";*/
+    private static final String URL_TO_SERVE = "https://services.eof.gr/drugsearch/SearchName.iface";
+    private static String parsedText = "";
+
+    private WebView webView;
 
     private ImageView imageViewSearchFragment;
     private ProgressBar progressBarSearchFragment;
@@ -92,14 +108,12 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment SearchFragmentNavigation.
      */
-    public static SearchFragmentNavigation newInstance(String param1, String param2) {
+    public static SearchFragmentNavigation newInstance(String param1) {
         SearchFragmentNavigation fragment = new SearchFragmentNavigation();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -109,7 +123,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -122,6 +135,8 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         //catching views
         hitaList = new ArrayList();
         editTextView = searchView.findViewById(R.id.autoSearchNavigation);
+        webView = searchView.findViewById(R.id.webViewEof);
+
 
         //Upon creation we check if there is internet connection
         ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -194,24 +209,24 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                             if (savedInstanceState == null) {
 
                                 //actions in specific row
-                                hideKeyboard();
 
-                                fetchInfo(editTextView.getText().toString().trim());
 
                                 getActivity().runOnUiThread(new Runnable() {
                                     public void run() {
+                                        hideKeyboard();
+                                        fetchInfo(editTextView.getText().toString().trim());
                                         progressBarSearchFragment.setVisibility(View.VISIBLE);
                                     }
                                 });
 
                             } else if (savedInstanceState != null && !afterRotationEditTextString.equals(editTextView.getText().toString().trim())) {
 
-                                hideKeyboard();
 
-                                fetchInfo(editTextView.getText().toString().trim());
 
                                 getActivity().runOnUiThread(new Runnable() {
                                     public void run() {
+                                        hideKeyboard();
+                                        fetchInfo(editTextView.getText().toString().trim());
                                         progressBarSearchFragment.setVisibility(View.VISIBLE);
                                     }
                                 });
@@ -252,6 +267,12 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
             }
         });
 
+        //Enable Javascript
+        webView.getSettings().setJavaScriptEnabled(true);
+        //Clear All and load url
+        webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnClear');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+        webView.loadUrl(URL_TO_SERVE);
+
         return searchView;
     }
 
@@ -283,28 +304,112 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
 
     private void fetchInfo(String queryString) {
 
+        //Put value
+        webView.loadUrl("javascript:(function(){l=document.getElementById('form1:txtDrname').value='" + queryString + "';})()");
 
-        /*Call<PojoSearch> call = soloupisAPI.getAllInfo();*/
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        // If there is a network connection, fetch info
+        if (networkInfo != null && networkInfo.isConnected()) {
 
-        /*call.enqueue(new Callback<PojoSearch>() {
-            @Override
-            public void onResponse(Call<PojoSearch> call, Response<PojoSearch> response) {
-                PojoSearch pojoSearch = response.body();
-                *//*Hits[] hits = pojoSearch.getHits();
-                Hits oneHit = hits[2];
-                String string = oneHit.getName();
-                mTextMessage.setText(string);*//*
+            //Click button
+            webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnSubmit');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
 
-                String queryString = pojoSearch.getTotalHits();
-                mTextMessage.setText(queryString);
+            //Wait 2 seconds
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+
+                    webView.evaluateJavascript(
+                            "(function() { return ('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'); })();",
+                            new ValueCallback<String>() {
+                                @Override
+                                public void onReceiveValue(String html) {
+
+                                    //Make progressBar disappear
+                                    progressBarSearchFragment.setVisibility(View.INVISIBLE);
+
+                                    JsonReader reader = new JsonReader(new StringReader(html));
+                                    reader.setLenient(true);
+                                    try {
+                                        if (reader.peek() == JsonToken.STRING) {
+                                            String domStr = reader.nextString();
+                                            if (domStr != null) {
+                                                parseSecondColumn(domStr);
+                                            }
+                                        }
+                                    } catch (IOException e) {
+                                        // handle exception
+                                    }
+
+                                }
+                            });
+                }
+            }, 2000);
+
+        } else {
+            Toast.makeText(context, R.string.no_internet, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private void parseSecondColumn(String html) throws IOException {
+
+        StringBuilder builder = new StringBuilder();
+        ArrayList<String> arrayForTextView = new ArrayList<>();
+
+        Document doc = Jsoup.parse(html);
+        /*logAll(doc.toString());*/
+
+        if (checkElement(doc.select("table[id=form1:tblResults]").first())) {
+
+            //Select column that attribute ends in lnkDRNAME
+            Elements row = doc.select("table[id=form1:tblResults]").select(".iceDatTblCol2").select("a[id$=lnkDRNAME]");
+            /*Log.e("HTML","OK");*/
+
+            if (row != null) {
+                for (Element element : row) {
+                    String text = element.text();
+                    arrayForTextView.add(text);
+                }
+
+                for (int i = 0; i < arrayForTextView.size(); i++) {
+                    builder.append(arrayForTextView.get(i)).append("\n");
+                    parsedText = builder.toString();
+                }
+
+                Log.e("FINAL", parsedText);
+
+                mSearchFragmentNavigationAdapter.setHitsData(arrayForTextView);
+                //we reset position to 0
+                mRecyclerViewSearchFragment.smoothScrollToPosition(0);
+                layoutManager.scrollToPositionWithOffset(0, 0);
+
+                //running the animation at the beggining of showing the list
+                runLayoutAnimation(mRecyclerViewSearchFragment);
             }
 
-            @Override
-            public void onFailure(Call<PojoSearch> call, Throwable t) {
-                Toast.makeText(MainActivityBottomNavigation.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });*/
+        }
+        //if the length is not OK
+        /*else if (checkElement(doc.select("table[id=dlSearch:j_idt22]").first())) {
+            Elements row = doc.select("table[id=dlSearch:j_idt22]").select(".ui-widget-content td");
 
+            if (row != null) {
+                Iterator<Element> iterator = row.listIterator();
+                while (iterator.hasNext()) {
+                    Element element = iterator.next();
+                    String text = element.text();
+                    parsedText = text;
+                }
+            }
+
+        }*/
+
+
+    }
+
+    private static boolean checkElement(Element elem) {
+        return elem != null;
     }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {

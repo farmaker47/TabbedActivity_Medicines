@@ -5,4 +5,5 @@
     <string name="please_connect_to_internet">No internet connection</string>
     <string name="search_autocomplete_fragment_hint">Search medicine\'s name</string>
     <string name="transition_photo">transition_photo</string>
+    <string name="no_internet">There is no internet connection!</string>
 </resources>

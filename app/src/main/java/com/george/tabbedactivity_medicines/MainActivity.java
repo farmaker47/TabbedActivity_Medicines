@@ -2,6 +2,7 @@ package com.george.tabbedactivity_medicines;
 
 import android.os.Bundle;
 
+import com.george.tabbedactivity_medicines.ui.main.SearchFragmentNavigation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -12,10 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.george.tabbedactivity_medicines.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchFragmentNavigation.OnFragmentInteractionListenerSearchFragmentNavigation {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,5 +40,10 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    public void onFragmentInteraction(String string, String string1, ImageView sharedImage) {
+
     }
 }
