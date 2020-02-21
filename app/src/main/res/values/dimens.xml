@@ -5,4 +5,7 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="image_search_empty_view">150dp</dimen>
+    <dimen name="progressBar">48dp</dimen>
+    <dimen name="cardViewHeight">88dp</dimen>
 </resources>
