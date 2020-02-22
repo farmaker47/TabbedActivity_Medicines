@@ -8,4 +8,5 @@
     <dimen name="image_search_empty_view">150dp</dimen>
     <dimen name="progressBar">48dp</dimen>
     <dimen name="cardViewHeight">88dp</dimen>
+    <dimen name="app_bar_height">260dp</dimen>
 </resources>

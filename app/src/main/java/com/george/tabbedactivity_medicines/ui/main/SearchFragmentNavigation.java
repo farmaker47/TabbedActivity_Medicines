@@ -83,7 +83,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     private static final String SUBSTANCE = "substance";
     private static final String PACKAGE = "package";
     private static final String SUPPLEMENT = "supplement";*/
-    private static final String URL_TO_SERVE = "https://services.eof.gr/drugsearch/SearchName.iface";
+    public static final String URL_TO_SERVE = "https://services.eof.gr/drugsearch/SearchName.iface";
     private static String parsedText = "";
 
     private WebView webView;
