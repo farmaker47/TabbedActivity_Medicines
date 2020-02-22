@@ -107,7 +107,8 @@
         <WebView
             android:id="@+id/webViewPackage"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="400dp"
+            android:visibility="gone"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollViewPackage"
@@ -466,7 +467,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:text="Γαληνός:"
+                                android:text="Σολούπης:"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 

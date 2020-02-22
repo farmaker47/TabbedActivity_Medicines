@@ -21,6 +21,7 @@ import com.george.tabbedactivity_medicines.R;
 public class DetailsActivity extends AppCompatActivity implements PackageFragment.OnFragmentInteractionListenerPackage{
 
     private FragmentManager fragmentManager;
+    private PackageFragment packageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            PackageFragment packageFragment = new PackageFragment();
+            packageFragment = new PackageFragment();
             fragmentManager.beginTransaction().add(R.id.containerDetailsFragments, packageFragment).commit();
 
         } else {
@@ -60,5 +61,20 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     @Override
     public void onFragmentInteractionPackage(String string, String string2, String string3) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        packageFragment.backPressButton();
     }
 }

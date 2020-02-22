@@ -1,6 +1,7 @@
 package com.george.tabbedactivity_medicines;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.george.tabbedactivity_medicines.ui.DetailsActivity;
@@ -9,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,9 +50,24 @@ public class MainActivity extends AppCompatActivity implements SearchFragmentNav
     @Override
     public void onFragmentInteraction(String string, String string1, ImageView sharedImage) {
 
-        Log.e("SECOND","SECOND");
-        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        startActivity(intent);*/
+
+        //making animation above api
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+            // bundle for the transition effect
+            Bundle bundle = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(
+                            this,
+                            sharedImage,
+                            sharedImage.getTransitionName()
+                    ).toBundle();
+            startActivity(intent, bundle);
+        } else {
+            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+            startActivity(intent);
+        }
 
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
@@ -22,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,8 @@ import androidx.fragment.app.Fragment;
 
 import com.george.tabbedactivity_medicines.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 import static com.george.tabbedactivity_medicines.ui.main.SearchFragmentNavigation.URL_TO_SERVE;
 
@@ -163,20 +167,9 @@ public class PackageFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (linearSpc.getVisibility() == View.GONE) {
-                    linearSpc.setVisibility(View.VISIBLE);
-                    getActivity().onBackPressed();
-                } else if (linearSpc.getVisibility() == View.VISIBLE) {
-                    linearSpc.setVisibility(View.GONE);
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            //Do something after 200ms
-                            getActivity().onBackPressed();
-                        }
-                    }, 200);
-                }
+
+                Objects.requireNonNull(getActivity()).onBackPressed();
+
             }
         });
 
@@ -188,6 +181,20 @@ public class PackageFragment extends Fragment {
             }
         });
 
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                Log.e("PAGEFINISHED","PACKAGE");
+            }
+        });
+
         //Enable Javascript
         webView.getSettings().setJavaScriptEnabled(true);
         //Clear All and load url
@@ -196,13 +203,15 @@ public class PackageFragment extends Fragment {
         return packageView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void backPressButton(){
 
-        /*if (getView() == null) {
+        webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+
+        if (getView() == null) {
             return;
         }
+
+
 
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
@@ -212,14 +221,16 @@ public class PackageFragment extends Fragment {
 
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                     // handle back button's click listener
-                    webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
-
                     return true;
                 }
                 return false;
             }
-        });*/
+        });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 

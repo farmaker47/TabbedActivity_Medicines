@@ -460,4 +460,11 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
 
         mListener.onFragmentInteraction(type, type, sharedImage);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        webView.loadUrl(URL_TO_SERVE);
+    }
 }
