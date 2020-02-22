@@ -26,6 +26,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,6 +85,7 @@ public class PackageFragment extends Fragment {
 
     ///////////////////////////////////////
     private WebView webView;
+    private ProgressBar progressBar;
 
     private OnFragmentInteractionListenerPackage mListener;
 
@@ -157,6 +159,7 @@ public class PackageFragment extends Fragment {
         textViewSpcHeader.setTextColor(Color.BLUE);
 
         linearSpc = packageView.findViewById(R.id.linearSpc);
+        progressBar = packageView.findViewById(R.id.progressBarPackage);
 
         /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         sharedLogged = sharedPreferences.getBoolean(EntryScreenNavigation.LOGGED_IN, false);
@@ -185,6 +188,10 @@ public class PackageFragment extends Fragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+
+                progressBar.setVisibility(View.VISIBLE);
+
+
             }
 
             @Override
@@ -192,6 +199,8 @@ public class PackageFragment extends Fragment {
                 super.onPageFinished(view, url);
 
                 Log.e("PAGEFINISHED","PACKAGE");
+
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -207,11 +216,9 @@ public class PackageFragment extends Fragment {
 
         webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
 
-        if (getView() == null) {
+        /*if (getView() == null) {
             return;
         }
-
-
 
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
@@ -225,7 +232,7 @@ public class PackageFragment extends Fragment {
                 }
                 return false;
             }
-        });
+        });*/
     }
 
     @Override

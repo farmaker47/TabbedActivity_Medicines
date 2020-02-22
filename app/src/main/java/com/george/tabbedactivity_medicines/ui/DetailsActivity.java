@@ -45,9 +45,6 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
             Toast.makeText(DetailsActivity.this, R.string.please_connect_to_internet, Toast.LENGTH_SHORT).show();
         }
 
-
-
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +63,6 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     @Override
     protected void onResume() {
         super.onResume();
-
-
 
     }
 
