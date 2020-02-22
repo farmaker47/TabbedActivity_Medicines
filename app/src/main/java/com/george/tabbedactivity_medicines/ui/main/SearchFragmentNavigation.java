@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,6 +42,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -222,7 +225,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                             } else if (savedInstanceState != null && !afterRotationEditTextString.equals(editTextView.getText().toString().trim())) {
 
 
-
                                 getActivity().runOnUiThread(new Runnable() {
                                     public void run() {
                                         hideKeyboard();
@@ -254,7 +256,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                         clearDataOfList();
                         showKeyboard();
                         return true;
-                    }else if (motionEvent.getRawX() < (editTextView.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width() - editTextView.getLeft())) {
+                    } else if (motionEvent.getRawX() < (editTextView.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width() - editTextView.getLeft())) {
 
                         //TODO
                         /*IntentIntegrator integrator = new IntentIntegrator(getActivity());
@@ -423,9 +425,9 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(String s, String s1,ImageView sharedImage) {
+    public void onButtonPressed(String s, String s1, ImageView sharedImage) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(s, s1,sharedImage);
+            mListener.onFragmentInteraction(s, s1, sharedImage);
         }
     }
 
@@ -446,10 +448,16 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         mListener = null;
     }
 
+
+
     //click from adapter
     @Override
-    public void onListItemClick(int itemIndex,ImageView sharedImage,String type) {
+    public void onListItemClick(int itemIndex, ImageView sharedImage, String type) {
 
+        Log.e("POSITION",String.valueOf(itemIndex));
 
+        webView.loadUrl("javascript:(function(){l=document.getElementById('form1:tblResults:" + itemIndex + ":lnkDRNAME');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+
+        mListener.onFragmentInteraction(type, type, sharedImage);
     }
 }

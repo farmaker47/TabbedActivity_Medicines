@@ -196,10 +196,31 @@ public class PackageFragment extends Fragment {
         return packageView;
     }
 
-    //avoid bad crash if Spc linear is extended and press back button
     @Override
     public void onResume() {
         super.onResume();
+
+        /*if (getView() == null) {
+            return;
+        }
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                    // handle back button's click listener
+                    webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+
+                    return true;
+                }
+                return false;
+            }
+        });*/
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
