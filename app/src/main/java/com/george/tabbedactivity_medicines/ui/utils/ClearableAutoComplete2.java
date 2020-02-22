@@ -34,7 +34,7 @@ public class ClearableAutoComplete2 extends AppCompatAutoCompleteTextView {
 
     // The image we defined for the clear button
     public Drawable imgClearButton = getResources().getDrawable(R.drawable.ic_clearbutton);
-    public Drawable searchButton = getResources().getDrawable(R.drawable.medicine_auto_complete);
+    public Drawable searchButton = getResources().getDrawable(R.drawable.ic_medicine_auto);
 
 
     public interface OnClearListener {

@@ -176,13 +176,13 @@ public class PackageFragment extends Fragment {
             }
         });
 
-        floatingActionButton = packageView.findViewById(R.id.fab);
+        /*floatingActionButton = packageView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
 
         webView.setWebViewClient(new WebViewClient(){
             @Override

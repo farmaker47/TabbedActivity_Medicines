@@ -27,8 +27,6 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         fragmentManager = getSupportFragmentManager();
 
