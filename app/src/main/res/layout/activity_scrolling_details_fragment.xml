@@ -116,7 +116,7 @@
             android:indeterminateTintMode="src_atop"
             android:visibility="invisible" />
 
-        <WebView
+        <com.george.tabbedactivity_medicines.ui.utils.LollipopFixedWebView
             android:id="@+id/webViewPackage"
             android:layout_width="match_parent"
             android:layout_height="300dp"

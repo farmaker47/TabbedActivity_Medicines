@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <WebView
+        <com.george.tabbedactivity_medicines.ui.utils.LollipopFixedWebView
             android:id="@+id/webViewEof"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
