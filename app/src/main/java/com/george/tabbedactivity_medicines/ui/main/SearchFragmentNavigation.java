@@ -202,7 +202,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                 ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-                if (editTextView.length() > 2 && networkInfo != null && networkInfo.isConnected()) {
+                if (editTextView.length() >= 4 && networkInfo != null && networkInfo.isConnected()) {
                     timer = new Timer();
                     timer.schedule(new TimerTask() {
                         @Override
@@ -375,6 +375,10 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                     arrayForTextView.add(text);
                 }
 
+                if(arrayForTextView.size() == 0){
+                    Toast.makeText(getActivity(), R.string.no_results, Toast.LENGTH_LONG).show();
+                }
+
                 for (int i = 0; i < arrayForTextView.size(); i++) {
                     builder.append(arrayForTextView.get(i)).append("\n");
                     parsedText = builder.toString();
@@ -449,12 +453,11 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     }
 
 
-
     //click from adapter
     @Override
     public void onListItemClick(int itemIndex, ImageView sharedImage, String type) {
 
-        Log.e("POSITION",String.valueOf(itemIndex));
+        Log.e("POSITION", String.valueOf(itemIndex));
 
         webView.loadUrl("javascript:(function(){l=document.getElementById('form1:tblResults:" + itemIndex + ":lnkDRNAME');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
 

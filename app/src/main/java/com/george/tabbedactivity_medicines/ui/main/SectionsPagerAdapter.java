@@ -1,6 +1,7 @@
 package com.george.tabbedactivity_medicines.ui.main;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -15,10 +16,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.onomasiaProiontos};
     private final Context mContext;
+    private Bundle instanceState;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, Bundle savedInstanceState) {
         super(fm);
         mContext = context;
+        instanceState = savedInstanceState;
     }
 
     @Override
@@ -29,8 +32,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if(position==0){
             return SearchFragmentNavigation.newInstance("ena");
         }else{
-            return NameFragment.newInstance(position + 2);
+            return NameFragment.newInstance(position + 1);
         }
+
     }
 
     @Nullable

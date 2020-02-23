@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -34,7 +35,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.george.tabbedactivity_medicines.R;
+import com.george.tabbedactivity_medicines.TabbedMainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -62,7 +65,7 @@ public class PackageFragment extends Fragment {
 
     private static final String BASE_IMAGE_URL = URL_TO_SERVE;
     private View packageView;
-    private String idToUse, typeFromEntry, baseName = "";
+    private String nameFromEntry, baseName = "";
     private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
     private TextView toolBarText, titleTextViewGray, sigentrosiTextView, farmakMorfi, syskeuasia, numberDoses,
             administrationRoutesTextView, textViewBarcode, textViewEof, textViewHdika, textViewGge, textViewSoloupis, textViewNosok,
@@ -160,6 +163,17 @@ public class PackageFragment extends Fragment {
 
         linearSpc = packageView.findViewById(R.id.linearSpc);
         progressBar = packageView.findViewById(R.id.progressBarPackage);
+
+        //Load dummy image
+        detailActivityImage = packageView.findViewById(R.id.detail_activity_image);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Picasso.get().load(R.drawable.recipe_icon).into(detailActivityImage);
+        }
+
+        nameFromEntry = getArguments().getString(TabbedMainActivity.NAME_TO_PASS);
+        titleTextViewGray = packageView.findViewById(R.id.titleTextViewGray);
+        titleTextViewGray.setText(nameFromEntry);
+
 
         /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         sharedLogged = sharedPreferences.getBoolean(EntryScreenNavigation.LOGGED_IN, false);

@@ -14,22 +14,21 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.george.tabbedactivity_medicines.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements SearchFragmentNavigation.OnFragmentInteractionListenerSearchFragmentNavigation {
+public class TabbedMainActivity extends AppCompatActivity implements SearchFragmentNavigation.OnFragmentInteractionListenerSearchFragmentNavigation {
+
+    public static final String NAME_TO_PASS = "name_to_pass";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), savedInstanceState);
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -48,14 +47,15 @@ public class MainActivity extends AppCompatActivity implements SearchFragmentNav
     }
 
     @Override
-    public void onFragmentInteraction(String string, String string1, ImageView sharedImage) {
+    public void onFragmentInteraction(String drugName, String string1, ImageView sharedImage) {
 
-        /*Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        /*Intent intent = new Intent(TabbedMainActivity.this, DetailsActivity.class);
         startActivity(intent);*/
 
         //making animation above api
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+            Intent intent = new Intent(TabbedMainActivity.this, DetailsActivity.class);
+            intent.putExtra(NAME_TO_PASS, drugName);
             // bundle for the transition effect
             Bundle bundle = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(
@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements SearchFragmentNav
                     ).toBundle();
             startActivity(intent, bundle);
         } else {
-            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+            Intent intent = new Intent(TabbedMainActivity.this, DetailsActivity.class);
+            intent.putExtra(NAME_TO_PASS, drugName);
             startActivity(intent);
         }
 

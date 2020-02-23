@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">EOF Search</string>
-    <string name="onomasiaProiontos">EOF Search</string>
+    <string name="onomasiaProiontos">Medicine\'s name</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="please_connect_to_internet">No internet connection!</string>
-    <string name="search_autocomplete_fragment_hint">Search medicine\'s name</string>
+    <string name="search_autocomplete_fragment_hint">Input at least 4 characters</string>
     <string name="transition_photo">transition_photo</string>
     <string name="no_internet">No internet connection!</string>
     <string name="title_activity_details">DetailsActivity</string>
+    <string name="no_results">Try again.. no results found!</string>
 </resources>

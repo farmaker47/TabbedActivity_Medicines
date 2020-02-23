@@ -1,10 +1,12 @@
 package com.george.tabbedactivity_medicines.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import com.george.tabbedactivity_medicines.TabbedMainActivity;
 import com.george.tabbedactivity_medicines.ui.main.PackageFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,6 +24,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
 
     private FragmentManager fragmentManager;
     private PackageFragment packageFragment;
+    private String nameOfDrug = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +33,26 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
 
         fragmentManager = getSupportFragmentManager();
 
+        Intent intent = getIntent();
+        if (intent.hasExtra(TabbedMainActivity.NAME_TO_PASS)) {
+            nameOfDrug = intent.getStringExtra(TabbedMainActivity.NAME_TO_PASS);
+        }
+
+        if(savedInstanceState == null){
+            Bundle bundle = new Bundle();
+            bundle.putString(TabbedMainActivity.NAME_TO_PASS, nameOfDrug);
+            packageFragment = new PackageFragment();
+            packageFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().add(R.id.containerDetailsFragments, packageFragment).commit();
+        }
+
         //check internet connection
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            packageFragment = new PackageFragment();
-            fragmentManager.beginTransaction().add(R.id.containerDetailsFragments, packageFragment).commit();
+            //TODO
 
         } else {
             Toast.makeText(DetailsActivity.this, R.string.please_connect_to_internet, Toast.LENGTH_SHORT).show();
