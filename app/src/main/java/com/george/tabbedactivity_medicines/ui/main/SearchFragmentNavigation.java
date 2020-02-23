@@ -63,7 +63,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     private String mParam1;
     private String mParam2;
 
-    private ArrayList<String> hitaList;
+    private ArrayList hitaList;
     private ClearableAutoComplete2 editTextView;
     private View searchView;
     private SoloupisEmptyRecyclerView mRecyclerViewSearchFragment;
@@ -78,14 +78,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     private Parcelable savedRecyclerLayoutState;
     private Context context;
 
-    /*private static final String ATC = "atc";
-    private static final String COMPANY = "company";
-    private static final String DRUG = "drug";
-    private static final String CITATION = "citation";
-    private static final String ICD10 = "icd10";
-    private static final String SUBSTANCE = "substance";
-    private static final String PACKAGE = "package";
-    private static final String SUPPLEMENT = "supplement";*/
     public static final String URL_TO_SERVE = "https://services.eof.gr/drugsearch/SearchName.iface";
     private static String parsedText = "";
 
@@ -142,8 +134,15 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
 
 
         //Upon creation we check if there is internet connection
-        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connMgr = (ConnectivityManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If there is a network connection, fetch data
+        if (networkInfo != null && networkInfo.isConnected()) {
+            //TODO
+        } else {
+            Toast.makeText(getActivity(), R.string.please_connect_to_internet, Toast.LENGTH_SHORT).show();
+        }
 
         imageViewSearchFragment = searchView.findViewById(R.id.imageSearchFragment);
         progressBarSearchFragment = searchView.findViewById(R.id.progressSearchFragment);
@@ -173,13 +172,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         mRecyclerViewSearchFragment.setAdapter(mSearchFragmentNavigationAdapter);
 
 
-        // If there is a network connection, fetch data
-        if (networkInfo != null && networkInfo.isConnected()) {
-            //TODO
-        } else {
-            Toast.makeText(getActivity(), R.string.please_connect_to_internet, Toast.LENGTH_SHORT).show();
-        }
-
         editTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -198,9 +190,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
 
             @Override
             public void afterTextChanged(final Editable editable) {
-
-                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
                 if (editTextView.length() >= 4 && networkInfo != null && networkInfo.isConnected()) {
                     timer = new Timer();
@@ -361,13 +350,11 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         ArrayList<String> arrayForTextView = new ArrayList<>();
 
         Document doc = Jsoup.parse(html);
-        /*logAll(doc.toString());*/
 
         if (checkElement(doc.select("table[id=form1:tblResults]").first())) {
 
             //Select column that attribute ends in lnkDRNAME
             Elements row = doc.select("table[id=form1:tblResults]").select(".iceDatTblCol2").select("a[id$=lnkDRNAME]");
-            /*Log.e("HTML","OK");*/
 
             if (row != null) {
                 for (Element element : row) {
@@ -383,8 +370,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                     builder.append(arrayForTextView.get(i)).append("\n");
                     parsedText = builder.toString();
                 }
-
-                Log.e("FINAL", parsedText);
 
                 mSearchFragmentNavigationAdapter.setHitsData(arrayForTextView);
                 //we reset position to 0
@@ -424,7 +409,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                 AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
 
         recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
 
@@ -456,8 +441,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
     //click from adapter
     @Override
     public void onListItemClick(int itemIndex, ImageView sharedImage, String type) {
-
-        Log.e("POSITION", String.valueOf(itemIndex));
 
         webView.loadUrl("javascript:(function(){l=document.getElementById('form1:tblResults:" + itemIndex + ":lnkDRNAME');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
 

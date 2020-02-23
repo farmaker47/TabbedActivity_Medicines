@@ -36,21 +36,18 @@ public class TabbedMainActivity extends AppCompatActivity implements SearchFragm
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
 
     @Override
     public void onFragmentInteraction(String drugName, String string1, ImageView sharedImage) {
-
-        /*Intent intent = new Intent(TabbedMainActivity.this, DetailsActivity.class);
-        startActivity(intent);*/
 
         //making animation above api
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

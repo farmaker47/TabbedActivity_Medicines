@@ -65,7 +65,7 @@ public class PackageFragment extends Fragment {
 
     private static final String BASE_IMAGE_URL = URL_TO_SERVE;
     private View packageView;
-    private String nameFromEntry, baseName = "";
+    private String nameFromEntry = "";
     private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
     private TextView toolBarText, titleTextViewGray, sigentrosiTextView, farmakMorfi, syskeuasia, numberDoses,
             administrationRoutesTextView, textViewBarcode, textViewEof, textViewHdika, textViewGge, textViewSoloupis, textViewNosok,
@@ -73,18 +73,6 @@ public class PackageFragment extends Fragment {
     private LinearLayout linearSistatika, linearYpeuthinos, linearDiathesis, linearSpc;
     private ImageView detailActivityImage;
     private FloatingActionButton floatingActionButton;
-    private SQLiteDatabase mdb;
-    private int columnIDIndex = -1;
-
-    private static final String ATC = "atc";
-    private static final String COMPANY = "company";
-    private static final String DRUG = "drug";
-    private static final String CITATION = "citation";
-    private static final String ICD10 = "icd10";
-    private static final String SUBSTANCE = "substance";
-    private static final String PACKAGE = "package";
-
-    private boolean sharedLogged;
 
     ///////////////////////////////////////
     private WebView webView;
@@ -211,10 +199,9 @@ public class PackageFragment extends Fragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
-                Log.e("PAGEFINISHED","PACKAGE");
-
                 progressBar.setVisibility(View.INVISIBLE);
+
+                //TODO = Fetch ALL info from Webview
             }
         });
 
