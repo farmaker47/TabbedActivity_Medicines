@@ -16,13 +16,15 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 
 
-
 import android.text.Html;
+import android.util.JsonReader;
+import android.util.JsonToken;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -39,6 +41,14 @@ import com.george.tabbedactivity_medicines.TabbedMainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.george.tabbedactivity_medicines.ui.main.SearchFragmentNavigation.URL_TO_SERVE;
@@ -69,10 +79,14 @@ public class PackageFragment extends Fragment {
     private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
     private TextView toolBarText, titleTextViewGray, sigentrosiTextView, farmakMorfi, syskeuasia, numberDoses,
             administrationRoutesTextView, textViewBarcode, textViewEof, textViewHdika, textViewGge, textViewSoloupis, textViewNosok,
-            textViewXondr, textViewLianiki, textViewSpcHeader;
-    private LinearLayout linearSistatika, linearYpeuthinos, linearDiathesis, linearSpc;
+            textViewXondr, textViewLianiki, nomikoKathestos, morfiEofTextView,
+            periektikotitaTextView, odosXorigisisTextView, kodikosAtcTextView, perigrafiAtcTextView,
+            onomasiaEtairiasTextView, addressEtairiasTextView, tilefonoEtairiasTextView, faxEtairiasTextView,
+            mailEtairiasTextView;
+    private LinearLayout linearSistatika, linearSpc;
     private ImageView detailActivityImage;
     private FloatingActionButton floatingActionButton;
+
 
     ///////////////////////////////////////
     private WebView webView;
@@ -122,34 +136,23 @@ public class PackageFragment extends Fragment {
         // Inflate the layout for this fragment
         packageView = inflater.inflate(R.layout.activity_scrolling_details_fragment, container, false);
         context = getActivity();
-        //catching the views
-        /*toolBarText = packageView.findViewById(R.id.toolbarText);
-        titleTextViewGray = packageView.findViewById(R.id.titleTextViewGray);
-        sigentrosiTextView = packageView.findViewById(R.id.sigentrosi);
-        detailActivityImage = packageView.findViewById(R.id.detail_activity_image);
         farmakMorfi = packageView.findViewById(R.id.farmakMorfi);
-        syskeuasia = packageView.findViewById(R.id.syskeuasia);
-        numberDoses = packageView.findViewById(R.id.numberDoses);
-        administrationRoutesTextView = packageView.findViewById(R.id.administrationRoutes);
+        nomikoKathestos = packageView.findViewById(R.id.nomikoKathestos);
+        morfiEofTextView = packageView.findViewById(R.id.morfiEofTextView);
+        periektikotitaTextView = packageView.findViewById(R.id.periektikotita);
+        odosXorigisisTextView = packageView.findViewById(R.id.odosXorigisisTextView);
+        kodikosAtcTextView = packageView.findViewById(R.id.kodikosAtcTextView);
+        perigrafiAtcTextView = packageView.findViewById(R.id.perigrafiAtcTextView);
+        onomasiaEtairiasTextView = packageView.findViewById(R.id.onomasiaEtairiasTextView);
+        addressEtairiasTextView = packageView.findViewById(R.id.addressEtairiasTextView);
+        tilefonoEtairiasTextView = packageView.findViewById(R.id.tilefonoEtairiasTextView);
+        faxEtairiasTextView = packageView.findViewById(R.id.faxEtairiasTextView);
+        mailEtairiasTextView = packageView.findViewById(R.id.mailEtairiasTextView);
+
         linearSistatika = packageView.findViewById(R.id.linearSistatika);
-        linearYpeuthinos = packageView.findViewById(R.id.linearYpeuthinos);
-        linearDiathesis = packageView.findViewById(R.id.linearDiathesis);
-        textViewBarcode = packageView.findViewById(R.id.textViewBarcode);
-        textViewEof = packageView.findViewById(R.id.textViewEof);
-        textViewHdika = packageView.findViewById(R.id.textViewIdika);
-        textViewGge = packageView.findViewById(R.id.textViewGge);
-        textViewSoloupis = packageView.findViewById(R.id.textViewSoloupis);
-        textViewNosok = packageView.findViewById(R.id.textViewNosok);
-        textViewXondr = packageView.findViewById(R.id.textViewXondrik);
-        textViewLianiki = packageView.findViewById(R.id.textViewLianiki);
-        floatingActionButton = packageView.findViewById(R.id.fab);*/
 
         webView = packageView.findViewById(R.id.webViewPackage);
 
-        textViewSpcHeader = packageView.findViewById(R.id.textViewSpcHeader);
-        textViewSpcHeader.setTextColor(Color.BLUE);
-
-        linearSpc = packageView.findViewById(R.id.linearSpc);
         progressBar = packageView.findViewById(R.id.progressBarPackage);
 
         //Load dummy image
@@ -186,7 +189,7 @@ public class PackageFragment extends Fragment {
             }
         });*/
 
-        webView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
@@ -202,6 +205,7 @@ public class PackageFragment extends Fragment {
                 progressBar.setVisibility(View.INVISIBLE);
 
                 //TODO = Fetch ALL info from Webview
+                fetchAllInfo();
             }
         });
 
@@ -213,7 +217,148 @@ public class PackageFragment extends Fragment {
         return packageView;
     }
 
-    public void backPressButton(){
+    private void fetchAllInfo() {
+
+        webView.evaluateJavascript(
+                "(function() { return ('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'); })();",
+                new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String html) {
+
+                        //Make progressBar disappear
+
+                        JsonReader reader = new JsonReader(new StringReader(html));
+                        reader.setLenient(true);
+                        try {
+                            if (reader.peek() == JsonToken.STRING) {
+                                String domStr = reader.nextString();
+                                if (domStr != null) {
+                                    parseAllInfo(domStr);
+                                }
+                            }
+                        } catch (IOException e) {
+                            // handle exception
+                        }
+
+                    }
+                });
+    }
+
+    private void parseAllInfo(String domStr) {
+
+        Document doc = Jsoup.parse(domStr);
+
+        if (checkElement(doc.select("input[id=form1:btnBack]").first())) {
+
+            logAll(doc.body().toString());
+
+            //Kodikos EOF
+            /*"<span class=\"iceOutTxt\" id=\"form1:txtDRUGID\">0232809</span>"*/
+            Element kodikosEof = doc.select("span[id=form1:txtDRUGID]").first();
+            farmakMorfi.setText(kodikosEof.text());
+
+            //Nomiko kathestos
+            Element nomikoKAthestos = doc.select("span[id=form1:txtLESTATUS]").first();
+            nomikoKathestos.setText(nomikoKAthestos.text());
+
+            //Morfi
+            Element morfi = doc.select("span[id=form1:tblDrform:0:txtformcode]").first();
+            morfiEofTextView.setText(morfi.text());
+
+            //Periektikotita
+            Element periektikotita = doc.select("span[id=form1:tblDrform:0:txtStrength]").first();
+            periektikotitaTextView.setText(periektikotita.text());
+
+            //Odos Xorigisis
+            Element odos = doc.select("span[id=form1:tblDRROUTE:0:txtDrroute]").first();
+            odosXorigisisTextView.setText(odos.text());
+
+            //Kodikos ATC
+            Element kodikos_atc = doc.select("span[id=form1:tblATC:0:txtATCcode]").first();
+            kodikosAtcTextView.setText(kodikos_atc.text());
+
+            //Perigrafi ATC
+            Element perigrafi_atc = doc.select("span[id=form1:tblATC:0:txtATCDESCR]").first();
+            perigrafiAtcTextView.setText(perigrafi_atc.text());
+
+            //Sistatika
+            if (checkElement(doc.select("table[id=form1:tblActiveIngredients]").first())) {
+                ArrayList<String> arrayForTextView = new ArrayList<>();
+
+                Elements row = doc.select("table[id=form1:tblActiveIngredients]").select(".iceDatTblCol2").select("span[id$=SUNAME]");
+
+                if (row != null) {
+                    for (Element element : row) {
+                        String text = element.text();
+                        arrayForTextView.add(text);
+                    }
+                }
+
+                for (int i = 0; i < arrayForTextView.size(); i++) {
+
+                    //Creating a view
+                    TextView ingredient = new TextView(context);
+                    ingredient.setText(arrayForTextView.get(i));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(8, 8, 8, 8);
+                    ingredient.setLayoutParams(params);
+                    ingredient.setTextSize(18);
+                    ingredient.setPaintFlags(ingredient.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                    ingredient.setTextColor(Color.BLUE);
+                    ingredient
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    //TODO
+                                }
+                            });
+                    linearSistatika.addView(ingredient);
+
+                }
+
+            }
+
+            //Onomasia etairias
+            Element onomasia_etairias = doc.select("td[id=form1:panelGrid6-0-1]").select("span[id=form1:txtName]").first();
+            onomasiaEtairiasTextView.setText(onomasia_etairias.text());
+
+            //address
+            Element address_etairias = doc.select("td[id=form1:panelGrid6-2-1]").select("span[id=form1:txtAddress]").first();
+            addressEtairiasTextView.setText(address_etairias.text());
+
+            //tilefono
+            Element tilefono_etairias = doc.select("td[id=form1:panelGrid6-3-1]").select("span[id=form1:txtPhone]").first();
+            tilefonoEtairiasTextView.setText(tilefono_etairias.text());
+
+            //Fax
+            Element fax_etairias = doc.select("td[id=form1:panelGrid6-4-1]").select("span[id=form1:txtFax]").first();
+            faxEtairiasTextView.setText(fax_etairias.text());
+
+            //Mail
+            Element mail_etairias = doc.select("td[id=form1:panelGrid6-5-1]").select("span[id=form1:txtEmail]").first();
+            mailEtairiasTextView.setText(mail_etairias.text());
+
+
+        }
+
+    }
+
+    private void logAll(String html) {
+        int maxLogSize = 1000;
+        for (int i = 0; i <= html.length() / maxLogSize; i++) {
+            int start = i * maxLogSize;
+            int end = (i + 1) * maxLogSize;
+            end = end > html.length() ? html.length() : end;
+            Log.e("YES_EXIST_ALL", html.substring(start, end));
+        }
+    }
+
+    private static boolean checkElement(Element elem) {
+        return elem != null;
+    }
+
+    public void backPressButton() {
 
         webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
 

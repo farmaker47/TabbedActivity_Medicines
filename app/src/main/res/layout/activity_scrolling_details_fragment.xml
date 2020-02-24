@@ -38,7 +38,7 @@
                     android:layout_height="120dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/medicine"/>
+                    android:src="@drawable/medicine" />
 
                 <View
                     android:id="@+id/article_title"
@@ -149,7 +149,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            android:text="Γενικά στοιχεία:"
+                            android:text="@string/genika"
                             android:textColor="#000"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -164,8 +164,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Φαρμ/χνική μορφή:"
+                                android:text="@string/kodikos_EOF"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 
@@ -174,7 +173,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
 
@@ -188,17 +186,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Συγκέντρωση:"
+                                android:text="@string/nomiko_Kathestos"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 
                             <TextView
-                                android:id="@+id/sigentrosi"
+                                android:id="@+id/nomikoKathestos"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
 
@@ -212,17 +208,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Συσκευασία:"
+                                android:text="@string/morfi"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 
                             <TextView
-                                android:id="@+id/syskeuasia"
+                                android:id="@+id/morfiEofTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
                                 android:textSize="16sp" />
                         </LinearLayout>
 
@@ -236,18 +230,87 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Οδοί χορήγησης:"
+                                android:text="@string/periektikotita"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 
                             <TextView
-                                android:id="@+id/administrationRoutes"
+                                android:id="@+id/periektikotita"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/odosXorigisis"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/odosXorigisisTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:minHeight="80dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/farmakologikiKatigoria"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/kodikos_ATC"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/kodikosAtcTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -260,19 +323,49 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Αριθμός δόσεων:"
+                                android:text="@string/perigrafi_ATC"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 
                             <TextView
-                                android:id="@+id/numberDoses"
+                                android:id="@+id/perigrafiAtcTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
                                 android:textSize="16sp" />
+
                         </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:minHeight="80dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:text="@string/drastikaSistatika"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/linearSistatika"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:orientation="vertical" />
 
                     </LinearLayout>
 
@@ -294,104 +387,133 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <ImageView
+                            <!--<ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="24dp"
                                 android:layout_margin="6dp"
                                 android:layout_weight="1"
-                                android:src="@drawable/medicine" />
+                                android:src="@drawable/medicine" />-->
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="4dp"
-                                android:layout_weight="8"
-                                android:text="Ενεργά συστατικά:"
+                                android:layout_margin="8dp"
+                                android:text="@string/ypefthinos_kikloforias"
                                 android:textColor="#000"
-                                android:textSize="18sp" />
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="4dp"
                             android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="24dp"
-                                android:layout_margin="6dp"
-                                android:layout_weight="1" />
-
-                            <LinearLayout
-                                android:id="@+id/linearSistatika"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="8"
-                                android:orientation="vertical">
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:minHeight="80dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="24dp"
-                                android:layout_margin="6dp"
-                                android:layout_weight="1"
-                                android:src="@drawable/medicine" />
 
                             <TextView
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="4dp"
-                                android:layout_weight="8"
-                                android:text="Υπεύθυνος κυκλοφορίας:"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/onomasia_etairias"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
-                        </LinearLayout>
 
+                            <TextView
+                                android:id="@+id/onomasiaEtairiasTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="4dp"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="24dp"
-                                android:layout_margin="6dp"
-                                android:layout_weight="1" />
-
-                            <LinearLayout
-                                android:id="@+id/linearYpeuthinos"
-                                android:layout_width="0dp"
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="8"
-                                android:orientation="vertical">
+                                android:layout_marginStart="8dp"
+                                android:text="@string/address_etairias"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
 
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/addressEtairiasTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/tilefono_etairias"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tilefonoEtairiasTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/fax_etairias"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/faxEtairiasTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/e_mail_etairias"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/mailEtairiasTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:textSize="16sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -425,277 +547,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:text="Αριθμοί αναγνώρισης:"
-                            android:textColor="#000"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Barcode:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewBarcode"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Σολούπης:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewSoloupis"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Ε.Ο.Φ:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewEof"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Η.ΔΙ.Κ.Α:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewIdika"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Γ.Γ.Ε:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewGge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            android:text="Διατίμηση:"
-                            android:textColor="#000"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Νοσοκομ.Τιμή:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewNosok"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Χονδρική Τιμή:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewXondrik"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:text="Λιανική Τιμή:"
-                                android:textColor="#000"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/textViewLianiki"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginLeft="8dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textViewSpcHeader"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_margin="8dp"
-                            android:text="Spc φαρμάκου:"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:id="@+id/linearSpc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_margin="8dp"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 

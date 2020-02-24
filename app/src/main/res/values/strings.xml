@@ -8,4 +8,20 @@
     <string name="no_internet">No internet connection!</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="no_results">Try again.. no results found!</string>
+    <string name="kodikos_EOF">Κωδικός ΕΟΦ:</string>
+    <string name="genika">Γενικά:</string>
+    <string name="nomiko_Kathestos">Νομικό καθεστώς:</string>
+    <string name="morfi">Μορφή:</string>
+    <string name="periektikotita">Περιεκτικότητα:</string>
+    <string name="odosXorigisis">Οδός χορήγησης:</string>
+    <string name="farmakologikiKatigoria">Φαρμακολογική(ές) Κατηγορία(ες):</string>
+    <string name="kodikos_ATC">Κωδικός ATC:</string>
+    <string name="perigrafi_ATC">Περιγραφή:</string>
+    <string name="drastikaSistatika">Δραστικά συστατικά:</string>
+    <string name="ypefthinos_kikloforias">Υπεύθυνος κυκλοφορίας:</string>
+    <string name="onomasia_etairias">Ονομασία εταιρείας:</string>
+    <string name="address_etairias">Διεύθυνση εταιρείας:</string>
+    <string name="tilefono_etairias">Τηλέφωνο:</string>
+    <string name="fax_etairias">Φαξ:</string>
+    <string name="e_mail_etairias">e-mail:</string>
 </resources>

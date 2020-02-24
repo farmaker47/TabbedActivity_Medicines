@@ -64,7 +64,7 @@ public class ClearableAutoComplete2 extends AppCompatAutoCompleteTextView {
         this.setCompoundDrawablesWithIntrinsicBounds(searchButton, null,
                 imgClearButton, null);
         imgClearButton.setColorFilter(new
-                PorterDuffColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY));
+                PorterDuffColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY));
 
         searchButton.setColorFilter(new
                 PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.MULTIPLY));
