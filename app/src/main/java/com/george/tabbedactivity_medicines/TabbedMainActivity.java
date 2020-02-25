@@ -23,10 +23,14 @@ public class TabbedMainActivity extends AppCompatActivity implements SearchFragm
 
     public static final String NAME_TO_PASS = "name_to_pass";
 
+    private SearchFragmentNavigation searchFragmentNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        searchFragmentNavigation = new SearchFragmentNavigation();
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), savedInstanceState);
 
@@ -67,5 +71,12 @@ public class TabbedMainActivity extends AppCompatActivity implements SearchFragm
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /*searchFragmentNavigation.inCaseNotLoaded();*/
     }
 }

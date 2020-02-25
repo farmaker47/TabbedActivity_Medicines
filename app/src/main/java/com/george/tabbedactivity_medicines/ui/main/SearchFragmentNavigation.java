@@ -327,6 +327,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                                             String domStr = reader.nextString();
                                             if (domStr != null) {
                                                 parseSecondColumn(domStr);
+
                                             }
                                         }
                                     } catch (IOException e) {
@@ -362,7 +363,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                     arrayForTextView.add(text);
                 }
 
-                if(arrayForTextView.size() == 0){
+                if (arrayForTextView.size() == 0) {
                     Toast.makeText(getActivity(), R.string.no_results, Toast.LENGTH_LONG).show();
                 }
 
@@ -379,22 +380,10 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                 //running the animation at the beggining of showing the list
                 runLayoutAnimation(mRecyclerViewSearchFragment);
             }
+        } else {
+            Toast.makeText(getActivity(), R.string.eof_error, Toast.LENGTH_LONG).show();
 
         }
-        //if the length is not OK
-        /*else if (checkElement(doc.select("table[id=dlSearch:j_idt22]").first())) {
-            Elements row = doc.select("table[id=dlSearch:j_idt22]").select(".ui-widget-content td");
-
-            if (row != null) {
-                Iterator<Element> iterator = row.listIterator();
-                while (iterator.hasNext()) {
-                    Element element = iterator.next();
-                    String text = element.text();
-                    parsedText = text;
-                }
-            }
-
-        }*/
 
 
     }
@@ -447,10 +436,22 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         mListener.onFragmentInteraction(type, type, sharedImage);
     }
 
+    public void inCaseNotLoaded() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+
+                webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+
+            }
+        }, 1000);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
 
         webView.loadUrl(URL_TO_SERVE);
+
     }
 }
