@@ -79,7 +79,6 @@ public class TabbedMainActivity extends AppCompatActivity implements SearchFragm
     protected void onResume() {
         super.onResume();
 
-        /*searchFragmentNavigation.inCaseNotLoaded();*/
         Timber.d("onResume");
     }
 }

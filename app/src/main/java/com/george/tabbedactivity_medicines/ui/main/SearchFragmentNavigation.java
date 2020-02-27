@@ -438,19 +438,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         mListener.onFragmentInteraction(type, type, sharedImage);
     }
 
-    public void inCaseNotLoaded() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-
-                webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
-
-            }
-        }, 1000);
-    }
-
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -466,7 +453,6 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         });
 
         webView.loadUrl(URL_TO_SERVE);
-        Log.e("OnRESUME","load");
 
     }
 }

@@ -10,5 +10,7 @@ public class TimberClass extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Timber.plant(new Timber.DebugTree());
+
     }
 }
