@@ -19,6 +19,8 @@ import android.widget.ImageView;
 
 import com.george.tabbedactivity_medicines.ui.main.SectionsPagerAdapter;
 
+import timber.log.Timber;
+
 public class TabbedMainActivity extends AppCompatActivity implements SearchFragmentNavigation.OnFragmentInteractionListenerSearchFragmentNavigation {
 
     public static final String NAME_TO_PASS = "name_to_pass";
@@ -78,5 +80,6 @@ public class TabbedMainActivity extends AppCompatActivity implements SearchFragm
         super.onResume();
 
         /*searchFragmentNavigation.inCaseNotLoaded();*/
+        Timber.d("onResume");
     }
 }
