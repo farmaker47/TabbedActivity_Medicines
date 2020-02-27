@@ -26,6 +26,7 @@ import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -448,11 +449,24 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
         }, 1000);
     }
 
+
+
     @Override
     public void onResume() {
         super.onResume();
 
+        webView.setWebViewClient(new WebViewClient(){
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+
+            }
+        });
+
         webView.loadUrl(URL_TO_SERVE);
+        Log.e("OnRESUME","load");
 
     }
 }
