@@ -253,36 +253,51 @@ public class PackageFragment extends Fragment {
 
         if (checkElement(doc.select("input[id=form1:btnBack]").first())) {
 
-            logAll(doc.body().toString());
+            /*logAll(doc.body().toString());*/
 
             //Kodikos EOF
             /*"<span class=\"iceOutTxt\" id=\"form1:txtDRUGID\">0232809</span>"*/
-            Element kodikosEof = doc.select("span[id=form1:txtDRUGID]").first();
-            farmakMorfi.setText(kodikosEof.text());
+            if (checkElement(doc.select("span[id=form1:txtDRUGID]").first())) {
+                Element kodikosEof = doc.select("span[id=form1:txtDRUGID]").first();
+                farmakMorfi.setText(kodikosEof.text());
+            }
+
 
             //Nomiko kathestos
-            Element nomikoKAthestos = doc.select("span[id=form1:txtLESTATUS]").first();
-            nomikoKathestos.setText(nomikoKAthestos.text());
+            if (checkElement(doc.select("span[id=form1:txtLESTATUS]").first())) {
+                Element nomikoKAthestos = doc.select("span[id=form1:txtLESTATUS]").first();
+                nomikoKathestos.setText(nomikoKAthestos.text());
+            }
 
             //Morfi
-            Element morfi = doc.select("span[id=form1:tblDrform:0:txtformcode]").first();
-            morfiEofTextView.setText(morfi.text());
+            if (checkElement(doc.select("span[id=form1:tblDrform:0:txtformcode]").first())) {
+                Element morfi = doc.select("span[id=form1:tblDrform:0:txtformcode]").first();
+                morfiEofTextView.setText(morfi.text());
+            }
 
             //Periektikotita
-            Element periektikotita = doc.select("span[id=form1:tblDrform:0:txtStrength]").first();
-            periektikotitaTextView.setText(periektikotita.text());
+            if (checkElement(doc.select("span[id=form1:tblDrform:0:txtStrength]").first())) {
+                Element periektikotita = doc.select("span[id=form1:tblDrform:0:txtStrength]").first();
+                periektikotitaTextView.setText(periektikotita.text());
+            }
 
             //Odos Xorigisis
-            Element odos = doc.select("span[id=form1:tblDRROUTE:0:txtDrroute]").first();
-            odosXorigisisTextView.setText(odos.text());
+            if (checkElement(doc.select("span[id=form1:tblDRROUTE:0:txtDrroute]").first())) {
+                Element odos = doc.select("span[id=form1:tblDRROUTE:0:txtDrroute]").first();
+                odosXorigisisTextView.setText(odos.text());
+            }
 
             //Kodikos ATC
-            Element kodikos_atc = doc.select("span[id=form1:tblATC:0:txtATCcode]").first();
-            kodikosAtcTextView.setText(kodikos_atc.text());
+            if (checkElement(doc.select("span[id=form1:tblATC:0:txtATCcode]").first())) {
+                Element kodikos_atc = doc.select("span[id=form1:tblATC:0:txtATCcode]").first();
+                kodikosAtcTextView.setText(kodikos_atc.text());
+            }
 
             //Perigrafi ATC
-            Element perigrafi_atc = doc.select("span[id=form1:tblATC:0:txtATCDESCR]").first();
-            perigrafiAtcTextView.setText(perigrafi_atc.text());
+            if (checkElement(doc.select("span[id=form1:tblATC:0:txtATCDESCR]").first())) {
+                Element perigrafi_atc = doc.select("span[id=form1:tblATC:0:txtATCDESCR]").first();
+                perigrafiAtcTextView.setText(perigrafi_atc.text());
+            }
 
             //Sistatika
             if (checkElement(doc.select("table[id=form1:tblActiveIngredients]").first())) {
@@ -323,42 +338,59 @@ public class PackageFragment extends Fragment {
             }
 
             //Onomasia etairias
-            Element onomasia_etairias = doc.select("td[id=form1:panelGrid6-0-1]").select("span[id=form1:txtName]").first();
-            onomasiaEtairiasTextView.setText(onomasia_etairias.text());
+            if (checkElement(doc.select("td[id=form1:panelGrid6-0-1]").select("span[id=form1:txtName]").first())) {
+                Element onomasia_etairias = doc.select("td[id=form1:panelGrid6-0-1]").select("span[id=form1:txtName]").first();
+                onomasiaEtairiasTextView.setText(onomasia_etairias.text());
+            }
 
-            //address
-            Element address_etairias = doc.select("td[id=form1:panelGrid6-2-1]").select("span[id=form1:txtAddress]").first();
-            addressEtairiasTextView.setText(address_etairias.text());
+            //Address
+            if (checkElement(doc.select("td[id=form1:panelGrid6-2-1]").select("span[id=form1:txtAddress]").first())) {
+                Element address_etairias = doc.select("td[id=form1:panelGrid6-2-1]").select("span[id=form1:txtAddress]").first();
+                addressEtairiasTextView.setText(address_etairias.text());
+            }
 
             //tilefono
-            Element tilefono_etairias = doc.select("td[id=form1:panelGrid6-3-1]").select("span[id=form1:txtPhone]").first();
-            tilefonoEtairiasTextView.setText(tilefono_etairias.text());
+            if (checkElement(doc.select("td[id=form1:panelGrid6-3-1]").select("span[id=form1:txtPhone]").first())) {
+                Element tilefono_etairias = doc.select("td[id=form1:panelGrid6-3-1]").select("span[id=form1:txtPhone]").first();
+                tilefonoEtairiasTextView.setText(tilefono_etairias.text());
+            }
 
             //Fax
-            Element fax_etairias = doc.select("td[id=form1:panelGrid6-4-1]").select("span[id=form1:txtFax]").first();
-            faxEtairiasTextView.setText(fax_etairias.text());
+            if (checkElement(doc.select("td[id=form1:panelGrid6-4-1]").select("span[id=form1:txtFax]").first())) {
+                Element fax_etairias = doc.select("td[id=form1:panelGrid6-4-1]").select("span[id=form1:txtFax]").first();
+                faxEtairiasTextView.setText(fax_etairias.text());
+            }
 
             //Mail
-            Element mail_etairias = doc.select("td[id=form1:panelGrid6-5-1]").select("span[id=form1:txtEmail]").first();
-            mailEtairiasTextView.setText(mail_etairias.text());
+            if (checkElement(doc.select("td[id=form1:panelGrid6-5-1]").select("span[id=form1:txtEmail]").first())) {
+                Element mail_etairias = doc.select("td[id=form1:panelGrid6-5-1]").select("span[id=form1:txtEmail]").first();
+                mailEtairiasTextView.setText(mail_etairias.text());
+            }
 
             //Perilipsi xaraktiristikon
 /*
             "<div id=\"form1:orDrugSPC_cont\"><a class=\"iceOutLnk\" href=\"/drugsearch/block/resource/MTk4OTkyOTkxMA==/SPC_0232802_1.pdf\" id=\"form1:orDrugSPC\" target=\"_blank\">SPC_0232802_1.pdf</a></div>"
 */
-            Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
-            perilipsiXaraktiristikonTextView.setText(perilipsi.text());
+            if (checkElement(doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first())) {
+                Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
+                perilipsiXaraktiristikonTextView.setText(perilipsi.text());
+            }
+
 
             //Filo Odigion
-            Element filoOdigion = doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first();
-            filoOdigionTextView.setText(filoOdigion.text());
+            if (checkElement(doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first())) {
+                Element filoOdigion = doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first();
+                filoOdigionTextView.setText(filoOdigion.text());
+            }
 
             //ekthesi aksiologisis
 /*
             "<td class=\"icePnlGrdCol2\" id=\"form1:grdPAR-0-1\"><a class=\"iceCmdLnk\" href=\"javascript:;\" id=\"form1:lnkPARMrp\" onblur=\"setFocus('');\" onclick=\"window.open('http://mri.medagencies.org/Human/Product/FullTextSearch?includeProductDetails=true&amp;includeProductDetails=true&amp;includeSPCResults=true&amp;includeSPCResults=true&amp;includePARResults=true&amp;includePARResults=true&amp;includeFPLResults=true&amp;includeFPLResults=true&amp;includeFLBResults=true&amp;includeFLBResults=true&amp;includeFPIResults=true&amp;includeFPIResults=true&amp;searchTerm=REMERON 30MG/TAB'); return false;var form=formOf(this);form['form1:_idcl'].value='form1:lnkPARMrp';return iceSubmit(form,this,event);\" onfocus=\"setFocus(this.id);\">Προβολή (H.M.A.)</a></td>"
 */
-            Element ekthesiAksiologisis = doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first();
-            ekthesiAksiologisisTextView.setText(ekthesiAksiologisis.text());
+            if (checkElement(doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first())) {
+                Element ekthesiAksiologisis = doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first();
+                ekthesiAksiologisisTextView.setText(ekthesiAksiologisis.text());
+            }
 
         }
 
