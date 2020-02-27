@@ -25,4 +25,8 @@
     <string name="fax_etairias">Φαξ:</string>
     <string name="e_mail_etairias">e-mail:</string>
     <string name="eof_error">Eof server is down..try again later</string>
+    <string name="tekmiriosi">Τεκμηρίωση:</string>
+    <string name="perilipsiXaraktiristikon">Περίληψη Χαρακτηριστικών Προϊόντος:</string>
+    <string name="fyloOdigion">Φύλλο Οδηγιών για το Χρήστη:</string>
+    <string name="ekthesiAksiologisis">" Δημόσια Έκθεση Αξιολόγησης:"</string>
 </resources>

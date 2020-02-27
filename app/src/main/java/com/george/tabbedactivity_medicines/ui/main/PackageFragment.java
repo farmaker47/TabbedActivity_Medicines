@@ -82,7 +82,7 @@ public class PackageFragment extends Fragment {
             textViewXondr, textViewLianiki, nomikoKathestos, morfiEofTextView,
             periektikotitaTextView, odosXorigisisTextView, kodikosAtcTextView, perigrafiAtcTextView,
             onomasiaEtairiasTextView, addressEtairiasTextView, tilefonoEtairiasTextView, faxEtairiasTextView,
-            mailEtairiasTextView;
+            mailEtairiasTextView, perilipsiXaraktiristikonTextView, filoOdigionTextView, ekthesiAksiologisisTextView;
     private LinearLayout linearSistatika, linearSpc;
     private ImageView detailActivityImage;
     private FloatingActionButton floatingActionButton;
@@ -148,6 +148,9 @@ public class PackageFragment extends Fragment {
         tilefonoEtairiasTextView = packageView.findViewById(R.id.tilefonoEtairiasTextView);
         faxEtairiasTextView = packageView.findViewById(R.id.faxEtairiasTextView);
         mailEtairiasTextView = packageView.findViewById(R.id.mailEtairiasTextView);
+        perilipsiXaraktiristikonTextView = packageView.findViewById(R.id.perilipsiXaraktiristikonTextView);
+        filoOdigionTextView = packageView.findViewById(R.id.filoOdigionTextView);
+        ekthesiAksiologisisTextView = packageView.findViewById(R.id.ekthesiAksiologisisTextView);
 
         linearSistatika = packageView.findViewById(R.id.linearSistatika);
 
@@ -339,6 +342,23 @@ public class PackageFragment extends Fragment {
             Element mail_etairias = doc.select("td[id=form1:panelGrid6-5-1]").select("span[id=form1:txtEmail]").first();
             mailEtairiasTextView.setText(mail_etairias.text());
 
+            //Perilipsi xaraktiristikon
+/*
+            "<div id=\"form1:orDrugSPC_cont\"><a class=\"iceOutLnk\" href=\"/drugsearch/block/resource/MTk4OTkyOTkxMA==/SPC_0232802_1.pdf\" id=\"form1:orDrugSPC\" target=\"_blank\">SPC_0232802_1.pdf</a></div>"
+*/
+            Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
+            perilipsiXaraktiristikonTextView.setText(perilipsi.text());
+
+            //Filo Odigion
+            Element filoOdigion = doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first();
+            filoOdigionTextView.setText(filoOdigion.text());
+
+            //ekthesi aksiologisis
+/*
+            "<td class=\"icePnlGrdCol2\" id=\"form1:grdPAR-0-1\"><a class=\"iceCmdLnk\" href=\"javascript:;\" id=\"form1:lnkPARMrp\" onblur=\"setFocus('');\" onclick=\"window.open('http://mri.medagencies.org/Human/Product/FullTextSearch?includeProductDetails=true&amp;includeProductDetails=true&amp;includeSPCResults=true&amp;includeSPCResults=true&amp;includePARResults=true&amp;includePARResults=true&amp;includeFPLResults=true&amp;includeFPLResults=true&amp;includeFLBResults=true&amp;includeFLBResults=true&amp;includeFPIResults=true&amp;includeFPIResults=true&amp;searchTerm=REMERON 30MG/TAB'); return false;var form=formOf(this);form['form1:_idcl'].value='form1:lnkPARMrp';return iceSubmit(form,this,event);\" onfocus=\"setFocus(this.id);\">Προβολή (H.M.A.)</a></td>"
+*/
+            Element ekthesiAksiologisis = doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first();
+            ekthesiAksiologisisTextView.setText(ekthesiAksiologisis.text());
 
         }
 
