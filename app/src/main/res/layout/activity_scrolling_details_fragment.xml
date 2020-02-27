@@ -120,7 +120,7 @@
             android:id="@+id/webViewPackage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollViewPackage"
@@ -561,8 +561,9 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="2"
                                 android:layout_marginStart="8dp"
                                 android:text="@string/perilipsiXaraktiristikon"
                                 android:textColor="#000"
@@ -570,10 +571,11 @@
 
                             <TextView
                                 android:id="@+id/perilipsiXaraktiristikonTextView"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:textColor="@color/colorBlue"
+                                android:textColor="#0000FF"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -585,8 +587,9 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="2"
                                 android:layout_marginStart="8dp"
                                 android:text="@string/fyloOdigion"
                                 android:textColor="#000"
@@ -594,33 +597,36 @@
 
                             <TextView
                                 android:id="@+id/filoOdigionTextView"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:textColor="@color/colorBlue"
+                                android:textColor="#0000FF"
                                 android:textSize="16sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
+                            android:layout_margin="4dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_weight="2"
+                                android:layout_margin="4dp"
                                 android:text="@string/ekthesiAksiologisis"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/ekthesiAksiologisisTextView"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:textColor="@color/colorBlue"
+                                android:layout_margin="4dp"
+                                android:textColor="#0000FF"
                                 android:textSize="16sp" />
                         </LinearLayout>
 

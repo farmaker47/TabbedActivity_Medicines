@@ -2,6 +2,7 @@ package com.george.tabbedactivity_medicines.ui.main;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +53,8 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import timber.log.Timber;
+
 import static com.george.tabbedactivity_medicines.ui.main.SearchFragmentNavigation.URL_TO_SERVE;
 
 
@@ -74,6 +78,7 @@ public class PackageFragment extends Fragment {
     private String mParam2;
 
     private static final String BASE_IMAGE_URL = URL_TO_SERVE;
+    private static final String URL_FOR_PDFs = "https://services.eof.gr";
     private View packageView;
     private String nameFromEntry = "";
     private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
@@ -374,6 +379,21 @@ public class PackageFragment extends Fragment {
             if (checkElement(doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first())) {
                 Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
                 perilipsiXaraktiristikonTextView.setText(perilipsi.text());
+
+                final Element perilipsiPdf = doc.select("div[id=form1:orDrugSPC_cont]").select("a[href]").first();
+
+                Timber.e(URL_FOR_PDFs + perilipsiPdf.attr("href"));
+
+                perilipsiXaraktiristikonTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myWebLink = new Intent(Intent.ACTION_VIEW);
+                        myWebLink.setData(Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href")));
+                        if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
+                            startActivity(myWebLink);
+                        }
+                    }
+                });
             }
 
 
@@ -381,6 +401,21 @@ public class PackageFragment extends Fragment {
             if (checkElement(doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first())) {
                 Element filoOdigion = doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first();
                 filoOdigionTextView.setText(filoOdigion.text());
+
+                final Element filoOdigionPdf = doc.select("div[id=form1:orDrugPL_cont]").select("a[href]").first();
+
+                Timber.e(URL_FOR_PDFs + filoOdigionPdf.attr("href"));
+
+                filoOdigionTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myWebLink = new Intent(Intent.ACTION_VIEW);
+                        myWebLink.setData(Uri.parse(URL_FOR_PDFs + filoOdigionPdf.attr("href")));
+                        if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
+                            startActivity(myWebLink);
+                        }
+                    }
+                });
             }
 
             //ekthesi aksiologisis
