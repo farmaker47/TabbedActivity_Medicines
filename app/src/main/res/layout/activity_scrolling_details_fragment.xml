@@ -563,8 +563,8 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
                                 android:layout_marginStart="8dp"
+                                android:layout_weight="2"
                                 android:text="@string/perilipsiXaraktiristikon"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
@@ -572,9 +572,12 @@
                             <TextView
                                 android:id="@+id/perilipsiXaraktiristikonTextView"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:textColor="#0000FF"
                                 android:textSize="16sp" />
 
@@ -589,8 +592,8 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
                                 android:layout_marginStart="8dp"
+                                android:layout_weight="2"
                                 android:text="@string/fyloOdigion"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
@@ -598,9 +601,12 @@
                             <TextView
                                 android:id="@+id/filoOdigionTextView"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:textColor="#0000FF"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -614,8 +620,8 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
                                 android:layout_margin="4dp"
+                                android:layout_weight="2"
                                 android:text="@string/ekthesiAksiologisis"
                                 android:textColor="#000"
                                 android:textSize="18sp" />
@@ -623,9 +629,12 @@
                             <TextView
                                 android:id="@+id/ekthesiAksiologisisTextView"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="4dp"
+                                android:layout_weight="1"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:textColor="#0000FF"
                                 android:textSize="16sp" />
                         </LinearLayout>

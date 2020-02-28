@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/autoSearchNavigation"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
 
         <com.george.tabbedactivity_medicines.ui.utils.ClearableAutoComplete2

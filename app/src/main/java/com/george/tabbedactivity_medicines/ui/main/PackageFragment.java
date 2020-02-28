@@ -22,6 +22,7 @@ import android.text.Html;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ import androidx.fragment.app.Fragment;
 
 import com.george.tabbedactivity_medicines.R;
 import com.george.tabbedactivity_medicines.TabbedMainActivity;
+import com.george.tabbedactivity_medicines.ui.DetailsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -78,7 +80,7 @@ public class PackageFragment extends Fragment {
     private String mParam2;
 
     private static final String BASE_IMAGE_URL = URL_TO_SERVE;
-    private static final String URL_FOR_PDFs = "https://services.eof.gr";
+    private static final String URL_FOR_PDFs = "services.eof.gr";
     private View packageView;
     private String nameFromEntry = "";
     private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
@@ -329,6 +331,9 @@ public class PackageFragment extends Fragment {
                     ingredient.setTextSize(18);
                     ingredient.setPaintFlags(ingredient.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     ingredient.setTextColor(Color.BLUE);
+                    TypedValue outValue = new TypedValue();
+                    context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+                    ingredient.setBackgroundResource(outValue.resourceId);
                     ingredient
                             .setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -387,11 +392,13 @@ public class PackageFragment extends Fragment {
                 perilipsiXaraktiristikonTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myWebLink = new Intent(Intent.ACTION_VIEW);
+                        /*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
                         myWebLink.setData(Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href")));
                         if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
                             startActivity(myWebLink);
-                        }
+                        }*/
+
+                        ((DetailsActivity) Objects.requireNonNull(getActivity())).downloadPdf(URL_FOR_PDFs + perilipsiPdf.attr("href"));
                     }
                 });
             }
