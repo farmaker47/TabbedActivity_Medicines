@@ -10,28 +10,19 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.george.tabbedactivity_medicines.ui.DetailsActivity;
-import com.george.tabbedactivity_medicines.ui.download.FileDownloader;
 import com.george.tabbedactivity_medicines.ui.main.SearchFragmentNavigation;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.content.FileProvider;
+
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Environment;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.george.tabbedactivity_medicines.ui.main.SectionsPagerAdapter;
-
-import java.io.File;
-import java.io.IOException;
 
 import timber.log.Timber;
 

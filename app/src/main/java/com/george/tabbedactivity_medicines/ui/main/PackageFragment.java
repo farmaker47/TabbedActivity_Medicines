@@ -1,31 +1,18 @@
 package com.george.tabbedactivity_medicines.ui.main;
 
 import android.app.DownloadManager;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.preference.PreferenceManager;
-
-
-import android.text.Html;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -48,14 +34,11 @@ import com.george.tabbedactivity_medicines.R;
 import com.george.tabbedactivity_medicines.TabbedMainActivity;
 import com.george.tabbedactivity_medicines.ui.DetailsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -218,7 +201,6 @@ public class PackageFragment extends Fragment {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-
             }
 
             @Override
@@ -226,12 +208,10 @@ public class PackageFragment extends Fragment {
                 super.onPageFinished(view, url);
                 progressBar.setVisibility(View.INVISIBLE);
 
-                //TODO = Fetch ALL info from Webview
                 fetchAllInfo();
 
                 cookieStringStripped = CookieManager.getInstance().getCookie(url);
-                Log.e("FRAGMENT", "All the cookies in a string:" + cookieStringStripped.substring(11, 39));
-                Log.e("FRAGMENT", "All the cookies in a string:" + cookieStringStripped);
+
             }
         });
 
@@ -240,7 +220,8 @@ public class PackageFragment extends Fragment {
         //Clear All and load url
         webView.loadUrl(URL_TO_SERVE);
 
-        webView.setDownloadListener(new DownloadListener() {
+        //Upon click on downloadable link outcomment below
+        /*webView.setDownloadListener(new DownloadListener() {
 
             @Override
             public void onDownloadStart(String url, String userAgent,
@@ -280,7 +261,7 @@ public class PackageFragment extends Fragment {
                 dm.enqueue(request);
 
             }
-        });
+        });*/
 
         return packageView;
     }
@@ -318,15 +299,11 @@ public class PackageFragment extends Fragment {
 
         if (checkElement(doc.select("input[id=form1:btnBack]").first())) {
 
-            /*logAll(doc.body().toString());*/
-
             //Kodikos EOF
-            /*"<span class=\"iceOutTxt\" id=\"form1:txtDRUGID\">0232809</span>"*/
             if (checkElement(doc.select("span[id=form1:txtDRUGID]").first())) {
                 Element kodikosEof = doc.select("span[id=form1:txtDRUGID]").first();
                 farmakMorfi.setText(kodikosEof.text());
             }
-
 
             //Nomiko kathestos
             if (checkElement(doc.select("span[id=form1:txtLESTATUS]").first())) {
@@ -438,9 +415,6 @@ public class PackageFragment extends Fragment {
             }
 
             //Perilipsi xaraktiristikon
-/*
-            "<div id=\"form1:orDrugSPC_cont\"><a class=\"iceOutLnk\" href=\"/drugsearch/block/resource/MTk4OTkyOTkxMA==/SPC_0232802_1.pdf\" id=\"form1:orDrugSPC\" target=\"_blank\">SPC_0232802_1.pdf</a></div>"
-*/
             if (checkElement(doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first())) {
                 final Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
                 perilipsiXaraktiristikonTextView.setText(perilipsi.text());
@@ -457,34 +431,15 @@ public class PackageFragment extends Fragment {
                         webView.loadUrl("javascript:(function(){l=document.getElementById('form1:orDrugSPC_cont');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
 */
 
-                        /*webView.setWebViewClient(new WebViewClient(){
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
-                                    view.getContext().startActivity(
-                                            new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                                    return true;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        });*/
-
-                        /*Uri uriUrl = Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href"));
-                        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        startActivity(launchBrowser);*/
-
                         /*Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href"))); // only used based on your example.
                         String title = "Select a browser";
-// Create intent to show the chooser dialog
+                        // Create intent to show the chooser dialog
                         Intent chooser = Intent.createChooser(intent, title);
-// Verify the original intent will resolve to at least one activity
+                        // Verify the original intent will resolve to at least one activity
                         if (intent.resolveActivity(context.getPackageManager()) != null) {
                             startActivity(chooser);
                         }*/
-
-
-
 
                         /*webView.setWebViewClient(new WebViewClient() {
                             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -519,36 +474,11 @@ public class PackageFragment extends Fragment {
                             }
                         }, 2000);*/
 
-
-
-
-
-
-
 /*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
                         myWebLink.setData(Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href")));
                         if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
                             startActivity(myWebLink);
                         }*/
-
-/*
-                        ((DetailsActivity) Objects.requireNonNull(getActivity())).downloadPdf(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
-*/
-/*
-                        ((DetailsActivity) Objects.requireNonNull(getActivity())).startServiceEof(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
-
-
-*/
-
-                        /*Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + perilipsiPdf.attr("href"));
-
-                                progressBar.setVisibility(View.VISIBLE);
-                            }
-                        }, 1000);*/
-
 
                         ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + perilipsiPdf.attr("href"),
                                 cookieStringStripped);
@@ -578,14 +508,17 @@ public class PackageFragment extends Fragment {
                             startActivity(myWebLink);
                         }*/
                         /*((DetailsActivity) Objects.requireNonNull(getActivity())).viewPdf();*/
+
+                        ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + filoOdigionPdf.attr("href"),
+                                cookieStringStripped);
+
+                        progressBar.setVisibility(View.VISIBLE);
                     }
                 });
             }
 
             //ekthesi aksiologisis
-/*
-            "<td class=\"icePnlGrdCol2\" id=\"form1:grdPAR-0-1\"><a class=\"iceCmdLnk\" href=\"javascript:;\" id=\"form1:lnkPARMrp\" onblur=\"setFocus('');\" onclick=\"window.open('http://mri.medagencies.org/Human/Product/FullTextSearch?includeProductDetails=true&amp;includeProductDetails=true&amp;includeSPCResults=true&amp;includeSPCResults=true&amp;includePARResults=true&amp;includePARResults=true&amp;includeFPLResults=true&amp;includeFPLResults=true&amp;includeFLBResults=true&amp;includeFLBResults=true&amp;includeFPIResults=true&amp;includeFPIResults=true&amp;searchTerm=REMERON 30MG/TAB'); return false;var form=formOf(this);form['form1:_idcl'].value='form1:lnkPARMrp';return iceSubmit(form,this,event);\" onfocus=\"setFocus(this.id);\">Προβολή (H.M.A.)</a></td>"
-*/
+
             if (checkElement(doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first())) {
                 Element ekthesiAksiologisis = doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first();
                 ekthesiAksiologisisTextView.setText(ekthesiAksiologisis.text());
