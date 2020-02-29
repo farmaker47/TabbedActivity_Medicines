@@ -23,8 +23,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/external_files"/>
+                android:resource="@xml/external_files" />
         </provider>
+
         <activity
             android:name=".ui.DetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -43,6 +44,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".ui.download.EofService"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -80,7 +80,7 @@ public class PackageFragment extends Fragment {
     private String mParam2;
 
     private static final String BASE_IMAGE_URL = URL_TO_SERVE;
-    private static final String URL_FOR_PDFs = "services.eof.gr";
+    private static final String URL_FOR_PDFs = "https://services.eof.gr";
     private View packageView;
     private String nameFromEntry = "";
     private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
@@ -331,9 +331,11 @@ public class PackageFragment extends Fragment {
                     ingredient.setTextSize(18);
                     ingredient.setPaintFlags(ingredient.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     ingredient.setTextColor(Color.BLUE);
+                    //ripple effect
                     TypedValue outValue = new TypedValue();
                     context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
                     ingredient.setBackgroundResource(outValue.resourceId);
+
                     ingredient
                             .setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -382,7 +384,7 @@ public class PackageFragment extends Fragment {
             "<div id=\"form1:orDrugSPC_cont\"><a class=\"iceOutLnk\" href=\"/drugsearch/block/resource/MTk4OTkyOTkxMA==/SPC_0232802_1.pdf\" id=\"form1:orDrugSPC\" target=\"_blank\">SPC_0232802_1.pdf</a></div>"
 */
             if (checkElement(doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first())) {
-                Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
+                final Element perilipsi = doc.select("div[id=form1:orDrugSPC_cont]").select(".iceOutLnk").first();
                 perilipsiXaraktiristikonTextView.setText(perilipsi.text());
 
                 final Element perilipsiPdf = doc.select("div[id=form1:orDrugSPC_cont]").select("a[href]").first();
@@ -398,7 +400,10 @@ public class PackageFragment extends Fragment {
                             startActivity(myWebLink);
                         }*/
 
-                        ((DetailsActivity) Objects.requireNonNull(getActivity())).downloadPdf(URL_FOR_PDFs + perilipsiPdf.attr("href"));
+/*
+                        ((DetailsActivity) Objects.requireNonNull(getActivity())).downloadPdf(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
+*/
+                        ((DetailsActivity) Objects.requireNonNull(getActivity())).startServiceEof(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
                     }
                 });
             }

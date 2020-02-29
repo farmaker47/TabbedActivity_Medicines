@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import com.george.tabbedactivity_medicines.BuildConfig;
 import com.george.tabbedactivity_medicines.TabbedMainActivity;
+import com.george.tabbedactivity_medicines.ui.download.EofService;
 import com.george.tabbedactivity_medicines.ui.download.FileDownloader;
 import com.george.tabbedactivity_medicines.ui.main.PackageFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,18 +33,26 @@ import android.widget.Toast;
 import com.george.tabbedactivity_medicines.R;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import timber.log.Timber;
 
-public class DetailsActivity extends AppCompatActivity implements PackageFragment.OnFragmentInteractionListenerPackage{
+public class DetailsActivity extends AppCompatActivity implements PackageFragment.OnFragmentInteractionListenerPackage {
 
     private FragmentManager fragmentManager;
     private PackageFragment packageFragment;
     private String nameOfDrug = "";
 
     private static final String TAG = "DetailsActivity";
-    private static final String[] PERMISSIONS = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private static final String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    public static final String URL_EOF_SERVICE = "eof_url_service";
+    public static final String NAME_EOF_SERVICE = "name_url_service";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +66,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
             nameOfDrug = intent.getStringExtra(TabbedMainActivity.NAME_TO_PASS);
         }
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
             bundle.putString(TabbedMainActivity.NAME_TO_PASS, nameOfDrug);
             packageFragment = new PackageFragment();
@@ -120,11 +129,11 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     }
 
     public void viewPdf(String stringPdf) {
-        Timber.v( "view() Method invoked ");
+        Timber.v("view() Method invoked ");
 
         if (!hasPermissions(this, PERMISSIONS)) {
 
-            Timber.v( "download() Method DOESN'T HAVE PERMISSIONS");
+            Timber.v("download() Method DOESN'T HAVE PERMISSIONS");
 
             Toast.makeText(getApplicationContext(), "You don't have read access !", Toast.LENGTH_LONG).show();
 
@@ -150,25 +159,24 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
                 Toast.makeText(this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
             }
         }
-        Timber.v( "view() Method completed ");
+        Timber.v("view() Method completed ");
 
     }
 
-    public void downloadPdf(String downloadUrl) {
+    public void downloadPdf(String downloadUrl, String name) {
         Log.v(TAG, "download() Method invoked ");
 
         if (!hasPermissions(this, PERMISSIONS)) {
 
             Log.v(TAG, "download() Method DON'T HAVE PERMISSIONS ");
 
-            Toast t = Toast.makeText(getApplicationContext(), "You don't have write access !", Toast.LENGTH_LONG);
-            t.show();
+            Toast.makeText(getApplicationContext(), "You don't have write access !", Toast.LENGTH_LONG).show();
 
         } else {
             Log.v(TAG, "download() Method HAVE PERMISSIONS ");
 
             //new DownloadFile().execute("http://maven.apache.org/maven-1.x/maven.pdf", "maven.pdf");
-            new DownloadFile().execute(downloadUrl, "spc.pdf");
+            new DownloadFile().execute(downloadUrl, name);
 
         }
 
@@ -180,20 +188,21 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
 
         @Override
         protected String doInBackground(String... strings) {
-            Log.v(TAG, "doInBackground() Method invoked ");
+
 
             String fileUrl = strings[0];
+            Log.e("URL", fileUrl);
             String fileName = strings[1];  // -> spc.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            /*String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
             File folder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
             File pdfFile = new File(folder, fileName);
-            Log.v(TAG, "doInBackground() pdfFile invoked " + pdfFile.getAbsolutePath());
-            Log.v(TAG, "doInBackground() pdfFile invoked " + pdfFile.getAbsoluteFile());
+            Log.e(TAG, "doInBackground() pdfFile invoked " + pdfFile.getAbsolutePath());
+            Log.e(TAG, "doInBackground() pdfFile invoked " + pdfFile.getAbsoluteFile());
 
             try {
                 pdfFile.createNewFile();
-                Log.v(TAG, "doInBackground() file created" + pdfFile);
+                Log.e(TAG, "doInBackground() file created" + pdfFile);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -201,9 +210,9 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
                 Log.e(TAG, "doInBackground() error" + e.getStackTrace());
 
 
-            }
-            FileDownloader.downloadFile(fileUrl, pdfFile);
-            Log.v(TAG, "doInBackground() file download completed");
+            }*/
+            FileDownloader.downloadFromInternet(DetailsActivity.this, fileUrl, fileName);
+            Log.e("DOWNLOADFROMINTERNET", fileUrl);
 
             return fileName;
         }
@@ -211,8 +220,18 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         @Override
         protected void onPostExecute(String fileNamePdf) {
 
-            viewPdf(fileNamePdf);
+            /*viewPdf(fileNamePdf);*/
+            Log.e("POSTeXECUTE", "EXECUTE");
+
 
         }
+    }
+
+    public void startServiceEof(String url, String name){
+
+        Intent intent = new Intent(this, EofService.class);
+        intent.putExtra(URL_EOF_SERVICE,url);
+        intent.putExtra(NAME_EOF_SERVICE,name);
+        startService(intent);
     }
 }
