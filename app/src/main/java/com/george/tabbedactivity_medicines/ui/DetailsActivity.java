@@ -1,8 +1,11 @@
 package com.george.tabbedactivity_medicines.ui;
 
+import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -54,6 +57,8 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     public static final String URL_EOF_SERVICE = "eof_url_service";
     public static final String NAME_EOF_SERVICE = "name_url_service";
 
+    private long downloadID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +101,24 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         });
 
         ActivityCompat.requestPermissions(this, PERMISSIONS, 112);
+
+        //Register receiver
+        registerReceiver(onDownloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
     }
+
+    private BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Fetching the download id received with the broadcast
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            //Checking if the received broadcast is for our enqueued download by matching download id
+            if (downloadID == id) {
+                packageFragment.makeProgressBarInVisible();
+                viewPdf();
+            }
+        }
+    };
 
     @Override
     public void onFragmentInteractionPackage(String string, String string2, String string3) {
@@ -107,6 +129,12 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(onDownloadComplete);
     }
 
     @Override
@@ -128,7 +156,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         return true;
     }
 
-    public void viewPdf(String stringPdf) {
+    public void viewPdf() {
         Timber.v("view() Method invoked ");
 
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -138,8 +166,11 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
             Toast.makeText(getApplicationContext(), "You don't have read access !", Toast.LENGTH_LONG).show();
 
         } else {
-            File d = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);  // -> filename = maven.pdf
-            File pdfFile = new File(d, stringPdf);
+
+            File pdfFile = new File(getExternalFilesDir(null), "spcrecipe.pdf");
+
+            /*File d = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);  // -> filename = maven.pdf
+            File pdfFile = new File(d, stringPdf);*/
 
             Timber.v("view() Method pdfFile " + pdfFile.getAbsolutePath());
 
@@ -227,11 +258,33 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         }
     }
 
-    public void startServiceEof(String url, String name){
+    public void startServiceEof(String url, String name) {
 
         Intent intent = new Intent(this, EofService.class);
-        intent.putExtra(URL_EOF_SERVICE,url);
-        intent.putExtra(NAME_EOF_SERVICE,name);
+        intent.putExtra(URL_EOF_SERVICE, url);
+        intent.putExtra(NAME_EOF_SERVICE, name);
         startService(intent);
+    }
+
+    public void beginDownload() {
+        File file = new File(getExternalFilesDir(null), "spcrecipe.pdf");
+        if (file.exists()) {
+            file.delete();
+        }
+
+
+        /*
+        Create a DownloadManager.Request with all the information necessary to start the download
+         */
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("https://www.moh.gov.gr/articles/times-farmakwn/deltia-timwn/6600-laquo-tropopoihsh-ths-d3-a-87611-13-12-2019-apofashs-me-thema-laquo-deltio-anathewrhmenwn-timwn-farmakwn-anthrwpinhs-xrhshs-dekembrioy-2019-raquo-raquo?fdl=15901"))
+                .setTitle("Dummy File")// Title of the Download Notification
+                .setDescription("Downloading")// Description of the Download Notification
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)// Visibility of the download Notification
+                .setDestinationUri(Uri.fromFile(file))// Uri of the destination file
+                .setAllowedOverMetered(true)// Set if download is allowed on Mobile network
+                .setAllowedOverRoaming(true);
+        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        downloadID = downloadManager.enqueue(request);// enqueue puts the download request in the queue.
+
     }
 }

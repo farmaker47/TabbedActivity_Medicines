@@ -34,7 +34,7 @@ public class FileDownloader {
             InputStream inputStream = urlConnection.getInputStream();
 
             //OVERWRITE with false parameter
-            FileOutputStream fileOutputStream = new FileOutputStream(directory,false);
+            FileOutputStream fileOutputStream = new FileOutputStream(directory, false);
             int totalSize = urlConnection.getContentLength();
 
             byte[] buffer = new byte[MEGABYTE];
@@ -74,7 +74,10 @@ public class FileDownloader {
             dir.mkdirs();
 
         try {
-            URL url = new URL(urlToUse);
+/*
+            URL url = new URL("https://www.moh.gov.gr/articles/times-farmakwn/deltia-timwn/6600-laquo-tropopoihsh-ths-d3-a-87611-13-12-2019-apofashs-me-thema-laquo-deltio-anathewrhmenwn-timwn-farmakwn-anthrwpinhs-xrhshs-dekembrioy-2019-raquo-raquo?fdl=15901");
+*/
+            URL url = new URL("https://services.eof.gr/drugsearch/block/resource/NTYwMzU5NTI4/SPC_1923103_1.pdf");
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
 
@@ -82,7 +85,7 @@ public class FileDownloader {
             // instead of the file
             Log.e(context.getString(R.string.server_returned_http) + connection.getResponseCode()
                     + " " + connection.getResponseMessage(), context.getString(R.string.server));
-            Log.e("NAME_PDF",namePdf);
+            Log.e("NAME_PDF", namePdf);
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 Log.e(context.getString(R.string.server_returned_http) + connection.getResponseCode()
                         + " " + connection.getResponseMessage(), context.getString(R.string.server));
@@ -95,7 +98,7 @@ public class FileDownloader {
             // download the file
             input = connection.getInputStream();
 
-            File fToPut = new File(dir, namePdf);
+            File fToPut = new File(dir, "deltio.pdf");
 
             /// set append to false if you want to overwrite
             output = new FileOutputStream(fToPut, false);
@@ -112,6 +115,7 @@ public class FileDownloader {
             while ((count = input.read(data)) != -1) {
                 total += count;
                 output.write(data, 0, count);
+                Log.e("FINISHED", "WRITTING");
             }
         } catch (Exception e) {
             e.toString();

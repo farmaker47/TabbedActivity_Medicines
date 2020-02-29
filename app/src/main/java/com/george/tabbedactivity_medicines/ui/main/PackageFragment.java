@@ -403,7 +403,13 @@ public class PackageFragment extends Fragment {
 /*
                         ((DetailsActivity) Objects.requireNonNull(getActivity())).downloadPdf(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
 */
+/*
                         ((DetailsActivity) Objects.requireNonNull(getActivity())).startServiceEof(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
+*/
+                        ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload();
+
+                        progressBar.setVisibility(View.VISIBLE);
+
                     }
                 });
             }
@@ -421,11 +427,12 @@ public class PackageFragment extends Fragment {
                 filoOdigionTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myWebLink = new Intent(Intent.ACTION_VIEW);
+                        /*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
                         myWebLink.setData(Uri.parse(URL_FOR_PDFs + filoOdigionPdf.attr("href")));
                         if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
                             startActivity(myWebLink);
-                        }
+                        }*/
+                        /*((DetailsActivity) Objects.requireNonNull(getActivity())).viewPdf();*/
                     }
                 });
             }
@@ -451,6 +458,10 @@ public class PackageFragment extends Fragment {
             end = end > html.length() ? html.length() : end;
             Log.e("YES_EXIST_ALL", html.substring(start, end));
         }
+    }
+
+    public void makeProgressBarInVisible(){
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     private static boolean checkElement(Element elem) {
