@@ -42,6 +42,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -128,6 +129,8 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
     }
 
@@ -266,23 +269,27 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         startService(intent);
     }
 
-    public void beginDownload() {
+    public void beginDownload(String url, String cookiesBrowser) {
         File file = new File(getExternalFilesDir(null), "spcrecipe.pdf");
         if (file.exists()) {
             file.delete();
         }
 
+        Log.e("CookiesDetails", cookiesBrowser);
+
 
         /*
         Create a DownloadManager.Request with all the information necessary to start the download
          */
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("https://www.moh.gov.gr/articles/times-farmakwn/deltia-timwn/6600-laquo-tropopoihsh-ths-d3-a-87611-13-12-2019-apofashs-me-thema-laquo-deltio-anathewrhmenwn-timwn-farmakwn-anthrwpinhs-xrhshs-dekembrioy-2019-raquo-raquo?fdl=15901"))
-                .setTitle("Dummy File")// Title of the Download Notification
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url))
+                .setTitle("SPC File")// Title of the Download Notification
                 .setDescription("Downloading")// Description of the Download Notification
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)// Visibility of the download Notification
                 .setDestinationUri(Uri.fromFile(file))// Uri of the destination file
                 .setAllowedOverMetered(true)// Set if download is allowed on Mobile network
                 .setAllowedOverRoaming(true);
+        request.addRequestHeader("cookie", cookiesBrowser);
+        request.addRequestHeader("User-Agent", cookiesBrowser);
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadID = downloadManager.enqueue(request);// enqueue puts the download request in the queue.
 

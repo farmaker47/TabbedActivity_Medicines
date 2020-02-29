@@ -1,5 +1,6 @@
 package com.george.tabbedactivity_medicines.ui.main;
 
+import android.app.DownloadManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
@@ -27,6 +29,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
+import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -43,20 +48,25 @@ import com.george.tabbedactivity_medicines.R;
 import com.george.tabbedactivity_medicines.TabbedMainActivity;
 import com.george.tabbedactivity_medicines.ui.DetailsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import timber.log.Timber;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.george.tabbedactivity_medicines.ui.main.SearchFragmentNavigation.URL_TO_SERVE;
 
 
@@ -93,6 +103,8 @@ public class PackageFragment extends Fragment {
     private LinearLayout linearSistatika, linearSpc;
     private ImageView detailActivityImage;
     private FloatingActionButton floatingActionButton;
+    private HashMap<String, String> cookies;
+    private String cookieStringStripped;
 
 
     ///////////////////////////////////////
@@ -216,6 +228,10 @@ public class PackageFragment extends Fragment {
 
                 //TODO = Fetch ALL info from Webview
                 fetchAllInfo();
+
+                cookieStringStripped = CookieManager.getInstance().getCookie(url);
+                Log.e("FRAGMENT", "All the cookies in a string:" + cookieStringStripped.substring(11, 39));
+                Log.e("FRAGMENT", "All the cookies in a string:" + cookieStringStripped);
             }
         });
 
@@ -223,6 +239,48 @@ public class PackageFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
         //Clear All and load url
         webView.loadUrl(URL_TO_SERVE);
+
+        webView.setDownloadListener(new DownloadListener() {
+
+            @Override
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimeType,
+                                        long contentLength) {
+
+                DownloadManager.Request request = new DownloadManager.Request(
+                        Uri.parse(url));
+
+
+                request.setMimeType(mimeType);
+
+
+                String cookies = CookieManager.getInstance().getCookie(url);
+
+
+                request.addRequestHeader("cookie", cookies);
+
+
+                request.addRequestHeader("User-Agent", userAgent);
+
+
+                request.setDescription("Downloading file...");
+
+
+                request.setTitle("Spc file");
+
+
+                request.allowScanningByMediaScanner();
+
+
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setDestinationInExternalPublicDir(
+                        Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(
+                                url, contentDisposition, mimeType));
+                DownloadManager dm = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
+                dm.enqueue(request);
+
+            }
+        });
 
         return packageView;
     }
@@ -394,7 +452,80 @@ public class PackageFragment extends Fragment {
                 perilipsiXaraktiristikonTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
+
+/*
+                        webView.loadUrl("javascript:(function(){l=document.getElementById('form1:orDrugSPC_cont');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+*/
+
+                        /*webView.setWebViewClient(new WebViewClient(){
+                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+                                    view.getContext().startActivity(
+                                            new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            }
+                        });*/
+
+                        /*Uri uriUrl = Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href"));
+                        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(launchBrowser);*/
+
+                        /*Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href"))); // only used based on your example.
+                        String title = "Select a browser";
+// Create intent to show the chooser dialog
+                        Intent chooser = Intent.createChooser(intent, title);
+// Verify the original intent will resolve to at least one activity
+                        if (intent.resolveActivity(context.getPackageManager()) != null) {
+                            startActivity(chooser);
+                        }*/
+
+
+
+
+                        /*webView.setWebViewClient(new WebViewClient() {
+                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                String url2 = "https://services.eof.gr/";
+                                // all links  with in ur site will be open inside the webview
+                                //links that start ur domain example(http://www.example.com/)
+                                if (url != null && url.startsWith(url2)) {
+                                    return false;
+                                }
+                                // all links that points outside the site will be open in a normal android browser
+                                else {
+                                    view.getContext().startActivity(
+                                            new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                                    return true;
+                                }
+                            }
+                        });
+                        webView.loadUrl("https://services.eof.gr/drugsearch/SearchName.iface");
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                String urlString = URL_FOR_PDFs + perilipsiPdf.attr("href");
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setPackage("com.android.chrome");
+                                if (intent.resolveActivity(context.getPackageManager()) != null) {
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(context, R.string.installChrome, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }, 2000);*/
+
+
+
+
+
+
+
+/*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
                         myWebLink.setData(Uri.parse(URL_FOR_PDFs + perilipsiPdf.attr("href")));
                         if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
                             startActivity(myWebLink);
@@ -405,8 +536,22 @@ public class PackageFragment extends Fragment {
 */
 /*
                         ((DetailsActivity) Objects.requireNonNull(getActivity())).startServiceEof(URL_FOR_PDFs + perilipsiPdf.attr("href"), perilipsi.text());
+
+
 */
-                        ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload();
+
+                        /*Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + perilipsiPdf.attr("href"));
+
+                                progressBar.setVisibility(View.VISIBLE);
+                            }
+                        }, 1000);*/
+
+
+                        ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + perilipsiPdf.attr("href"),
+                                cookieStringStripped);
 
                         progressBar.setVisibility(View.VISIBLE);
 
@@ -460,7 +605,7 @@ public class PackageFragment extends Fragment {
         }
     }
 
-    public void makeProgressBarInVisible(){
+    public void makeProgressBarInVisible() {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
@@ -494,6 +639,28 @@ public class PackageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        /*//Jsoup
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cookies = new HashMap<>();
+                try {
+                    Connection.Response loginFormResponse = Jsoup.connect(URL_TO_SERVE)
+                            .method(Connection.Method.GET)
+                            .userAgent("Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36")
+                            .execute();
+
+                    cookies.putAll(loginFormResponse.cookies());
+                    Log.e("FRAGMENT_JSOUP", new Gson().toJson(cookies));
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();*/
+
 
     }
 
