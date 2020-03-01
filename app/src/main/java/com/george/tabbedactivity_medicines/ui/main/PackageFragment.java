@@ -2,6 +2,7 @@ package com.george.tabbedactivity_medicines.ui.main;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -507,12 +508,20 @@ public class PackageFragment extends Fragment {
                 /*final Element perilipsiPdf = doc.select("div[id=form1:orDrugSPC_cont]").select("a[href]").first();*/
 
                 /*Timber.e(URL_FOR_PDFs + perilipsiPdf.attr("href"));*/
-
                 perilipsiXaraktiristikonTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(context, "NOT_NOT", Toast.LENGTH_LONG).show();
+                        String findString = perilipsi.attr("onclick");
+                        int iend = findString.indexOf(";");
+
+                        /*Toast.makeText(context, perilipsi.attr("onclick").substring(13, iend), Toast.LENGTH_LONG).show();*/
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(perilipsi.attr("onclick").substring(13, iend)));
+                        if (intent.resolveActivity(context.getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
                     }
                 });
             }
@@ -556,20 +565,20 @@ public class PackageFragment extends Fragment {
                 final Element filoOdigion = doc.select("td[id=form1:grdPLLink-0-0]").select(".iceCmdLnk").first();
                 filoOdigionTextView.setText(filoOdigion.text());
 
-                /*final Element filoOdigionPdf = doc.select("div[id=form1:orDrugPL_cont]").select("a[href]").first();
-
-                Timber.e(URL_FOR_PDFs + filoOdigionPdf.attr("href"));*/
-
                 filoOdigionTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
-                        myWebLink.setData(Uri.parse(URL_FOR_PDFs + filoOdigionPdf.attr("href")));
-                        if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
-                            startActivity(myWebLink);
-                        }*/
-                        /*((DetailsActivity) Objects.requireNonNull(getActivity())).viewPdf();*/
-                        Toast.makeText(context, "NOT_NOT", Toast.LENGTH_LONG).show();
+
+                        String findString = filoOdigion.attr("onclick");
+                        int iend = findString.indexOf(";");
+
+                        /*Toast.makeText(context, filoOdigion.attr("onclick").substring(13, iend), Toast.LENGTH_LONG).show();*/
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(filoOdigion.attr("onclick").substring(13, iend)));
+                        if (intent.resolveActivity(context.getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
 
                     }
                 });
@@ -591,7 +600,14 @@ public class PackageFragment extends Fragment {
                             progressBar.setVisibility(View.VISIBLE);
                         } else if (ekthesiAksiologisis.text().equals("Προβολή (H.M.A.)") || ekthesiAksiologisis.text().equals("Προβολή (E.M.A.)")) {
 
-                            Toast.makeText(context, "NOT_NOT", Toast.LENGTH_LONG).show();
+                            String findString = ekthesiAksiologisis.attr("onclick");
+                            int iend = findString.indexOf(";");
+
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(ekthesiAksiologisis.attr("onclick").substring(13, iend)));
+                            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                                startActivity(intent);
+                            }
                         } else {
                             Toast.makeText(context, "Not a valid file to download ekthesi. Please try another one.", Toast.LENGTH_LONG).show();
                         }
