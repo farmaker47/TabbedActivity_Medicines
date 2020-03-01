@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -480,11 +481,38 @@ public class PackageFragment extends Fragment {
                             startActivity(myWebLink);
                         }*/
 
-                        ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + perilipsiPdf.attr("href"),
-                                cookieStringStripped);
+                        if (perilipsi.text().endsWith(".pdf") || perilipsi.text().endsWith(".doc") || perilipsi.text().endsWith(".docx")) {
 
-                        progressBar.setVisibility(View.VISIBLE);
+                            ((DetailsActivity) Objects.requireNonNull(getActivity())).setNameOfPdf(perilipsi.text());
+                            ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + perilipsiPdf.attr("href"),
+                                    cookieStringStripped, perilipsi.text());
 
+                            progressBar.setVisibility(View.VISIBLE);
+
+                        } /*else if (perilipsi.text().equals("Προβολή (H.M.A.)") || perilipsi.text().equals("Προβολή (E.M.A.)")) {
+
+
+                        }*/ else {
+                            Toast.makeText(context, "Not a valid file to download. Please try another one.", Toast.LENGTH_LONG).show();
+                        }
+
+
+                    }
+                });
+            } else if (checkElement(doc.select("td[id=form1:grdSPCLink-0-0]").select(".iceCmdLnk").first())) {
+
+                final Element perilipsi = doc.select("td[id=form1:grdSPCLink-0-0]").select(".iceCmdLnk").first();
+                perilipsiXaraktiristikonTextView.setText(perilipsi.text());
+
+                /*final Element perilipsiPdf = doc.select("div[id=form1:orDrugSPC_cont]").select("a[href]").first();*/
+
+                /*Timber.e(URL_FOR_PDFs + perilipsiPdf.attr("href"));*/
+
+                perilipsiXaraktiristikonTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(context, "NOT_NOT", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -492,7 +520,7 @@ public class PackageFragment extends Fragment {
 
             //Filo Odigion
             if (checkElement(doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first())) {
-                Element filoOdigion = doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first();
+                final Element filoOdigion = doc.select("div[id=form1:orDrugPL_cont]").select(".iceOutLnk").first();
                 filoOdigionTextView.setText(filoOdigion.text());
 
                 final Element filoOdigionPdf = doc.select("div[id=form1:orDrugPL_cont]").select("a[href]").first();
@@ -508,21 +536,70 @@ public class PackageFragment extends Fragment {
                             startActivity(myWebLink);
                         }*/
                         /*((DetailsActivity) Objects.requireNonNull(getActivity())).viewPdf();*/
+                        if (filoOdigion.text().endsWith(".pdf") || filoOdigion.text().endsWith(".doc") || filoOdigion.text().endsWith(".docx")) {
+                            ((DetailsActivity) Objects.requireNonNull(getActivity())).setNameOfPdf(filoOdigion.text());
+                            ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + filoOdigionPdf.attr("href"),
+                                    cookieStringStripped, filoOdigion.text());
 
-                        ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + filoOdigionPdf.attr("href"),
-                                cookieStringStripped);
+                            progressBar.setVisibility(View.VISIBLE);
+                        } /*else if (filoOdigion.text().equals("Προβολή (H.M.A.)") || filoOdigion.text().equals("Προβολή (E.M.A.)")) {
 
-                        progressBar.setVisibility(View.VISIBLE);
+
+                        }*/ else {
+                            Toast.makeText(context, "Not a valid file to download. Please try another one.", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+            } else if (checkElement(doc.select("td[id=form1:grdPLLink-0-0]").select(".iceCmdLnk").first())) {
+
+                final Element filoOdigion = doc.select("td[id=form1:grdPLLink-0-0]").select(".iceCmdLnk").first();
+                filoOdigionTextView.setText(filoOdigion.text());
+
+                /*final Element filoOdigionPdf = doc.select("div[id=form1:orDrugPL_cont]").select("a[href]").first();
+
+                Timber.e(URL_FOR_PDFs + filoOdigionPdf.attr("href"));*/
+
+                filoOdigionTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        /*Intent myWebLink = new Intent(Intent.ACTION_VIEW);
+                        myWebLink.setData(Uri.parse(URL_FOR_PDFs + filoOdigionPdf.attr("href")));
+                        if (myWebLink.resolveActivity(context.getPackageManager()) != null) {
+                            startActivity(myWebLink);
+                        }*/
+                        /*((DetailsActivity) Objects.requireNonNull(getActivity())).viewPdf();*/
+                        Toast.makeText(context, "NOT_NOT", Toast.LENGTH_LONG).show();
+
                     }
                 });
             }
 
             //ekthesi aksiologisis
-
             if (checkElement(doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first())) {
-                Element ekthesiAksiologisis = doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first();
+                final Element ekthesiAksiologisis = doc.select("td[id=form1:grdPAR-0-1]").select(".iceCmdLnk").first();
                 ekthesiAksiologisisTextView.setText(ekthesiAksiologisis.text());
+
+                ekthesiAksiologisisTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (ekthesiAksiologisis.text().endsWith(".pdf") || ekthesiAksiologisis.text().endsWith(".doc") || ekthesiAksiologisis.text().endsWith(".docx")) {
+                            ((DetailsActivity) Objects.requireNonNull(getActivity())).setNameOfPdf(ekthesiAksiologisis.text());
+                            ((DetailsActivity) Objects.requireNonNull(getActivity())).beginDownload(URL_FOR_PDFs + ekthesiAksiologisis.attr("href"),
+                                    cookieStringStripped, ekthesiAksiologisis.text());
+
+                            progressBar.setVisibility(View.VISIBLE);
+                        } else if (ekthesiAksiologisis.text().equals("Προβολή (H.M.A.)") || ekthesiAksiologisis.text().equals("Προβολή (E.M.A.)")) {
+
+                            Toast.makeText(context, "NOT_NOT", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(context, "Not a valid file to download ekthesi. Please try another one.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
             }
+
 
         }
 

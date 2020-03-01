@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     private static final String NAME_OF_SPC = "recipe_spc.pdf";
 
     private long downloadID;
+    private String nameSpcPdf = "recipe_spc.pdf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
             //Checking if the received broadcast is for our enqueued download by matching download id
             if (downloadID == id) {
                 packageFragment.makeProgressBarInVisible();
-                viewPdf();
+                viewPdf(nameSpcPdf);
             }
         }
     };
@@ -143,7 +145,11 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         return true;
     }
 
-    public void viewPdf() {
+    public void setNameOfPdf(String name) {
+        nameSpcPdf = name;
+    }
+
+    public void viewPdf(String name) {
         Timber.v("view() Method invoked ");
 
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -154,33 +160,62 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
 
         } else {
 
-            File pdfFile = new File(getExternalFilesDir(null), NAME_OF_SPC);
+            if (name.endsWith(".pdf")) {
+                File pdfFile = new File(getExternalFilesDir(null), name);
 
-            Timber.v("view() Method pdfFile " + pdfFile.getAbsolutePath());
+                Timber.v("view() Method pdfFile " + pdfFile.getAbsolutePath());
 
-            Uri path = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", pdfFile);
+                Uri path = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", pdfFile);
 
 
-            Log.v(TAG, "view() Method path " + path);
+                Log.v(TAG, "view() Method path " + path);
 
-            Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-            pdfIntent.setDataAndType(path, "application/pdf");
-            pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+                pdfIntent.setDataAndType(path, "application/pdf");
+                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            try {
-                startActivity(pdfIntent);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                try {
+                    startActivity(pdfIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                }
+            } else if (name.endsWith(".doc") || name.endsWith(".docx")) {
+                File pdfFile = new File(getExternalFilesDir(null), name);
+
+                Timber.v("view() Method pdfFile " + pdfFile.getAbsolutePath());
+
+                Uri path = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", pdfFile);
+
+
+                Log.v(TAG, "view() Method path " + path);
+
+                Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+                pdfIntent.setDataAndType(path, "text/plain");
+                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                /*Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("/");
+                String[] mimetypes = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/msword"};
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);*/
+
+                try {
+                    startActivity(pdfIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                }
             }
+
         }
         Timber.v("view() Method completed ");
 
     }
 
-    public void beginDownload(String url, String cookiesBrowser) {
+    public void beginDownload(String url, String cookiesBrowser, String namePdf) {
 
-        File file = new File(getExternalFilesDir(null), NAME_OF_SPC);
+        File file = new File(getExternalFilesDir(null), namePdf);
         if (file.exists()) {
             file.delete();
         }
@@ -196,7 +231,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
                 .setAllowedOverMetered(true)// Set if download is allowed on Mobile network
                 .setAllowedOverRoaming(true);
         request.addRequestHeader("cookie", cookiesBrowser);
-        request.addRequestHeader("User-Agent", cookiesBrowser);
+        /*request.addRequestHeader("User-Agent", cookiesBrowser);*/
         DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         downloadID = downloadManager.enqueue(request);// enqueue puts the download request in the queue.
 
