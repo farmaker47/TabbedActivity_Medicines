@@ -120,7 +120,7 @@
             android:id="@+id/webViewPackage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollViewPackage"

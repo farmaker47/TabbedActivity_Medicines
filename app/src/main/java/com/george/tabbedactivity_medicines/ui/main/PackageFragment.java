@@ -208,7 +208,7 @@ public class PackageFragment extends Fragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.GONE);
 
                 fetchAllInfo();
 
@@ -275,8 +275,6 @@ public class PackageFragment extends Fragment {
                 new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String html) {
-
-                        //Make progressBar disappear
 
                         JsonReader reader = new JsonReader(new StringReader(html));
                         reader.setLenient(true);
@@ -632,7 +630,7 @@ public class PackageFragment extends Fragment {
     }
 
     public void makeProgressBarInVisible() {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     private static boolean checkElement(Element elem) {

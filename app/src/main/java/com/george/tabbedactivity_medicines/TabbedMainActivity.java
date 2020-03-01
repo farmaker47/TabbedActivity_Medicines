@@ -19,6 +19,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ public class TabbedMainActivity extends AppCompatActivity implements SearchFragm
             Intent intent = new Intent(TabbedMainActivity.this, DetailsActivity.class);
             intent.putExtra(NAME_TO_PASS, drugName);
             // bundle for the transition effect
+            Log.e("transition", sharedImage.getTransitionName());
             Bundle bundle = ActivityOptionsCompat
                     .makeSceneTransitionAnimation(
                             this,
