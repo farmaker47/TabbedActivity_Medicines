@@ -34,4 +34,5 @@
     <string name="server" translatable="false">server</string>
     <string name="serverNew">Server</string>
     <string name="installChrome">Install Chrome browser first to view pdf</string>
+    <string name="wait_String">Wait...</string>
 </resources>

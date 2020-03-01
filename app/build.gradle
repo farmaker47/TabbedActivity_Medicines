@@ -41,4 +41,8 @@ dependencies {
 
     //Timber logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //drastiki
+    implementation 'com.github.ar-android:AndroidSvgLoader:1.0.2'
+    implementation 'com.ms-square:expandableTextView:0.1.4'
 }
