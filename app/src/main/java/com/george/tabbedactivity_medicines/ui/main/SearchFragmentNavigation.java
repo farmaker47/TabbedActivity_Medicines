@@ -382,8 +382,9 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                 runLayoutAnimation(mRecyclerViewSearchFragment);
             }
         } else {
-            //In case server is down for maintainance
+            //In case server is down for maintenance
             Toast.makeText(getActivity(), R.string.eof_error, Toast.LENGTH_LONG).show();
+            Objects.requireNonNull(getActivity()).finish();
 
         }
 

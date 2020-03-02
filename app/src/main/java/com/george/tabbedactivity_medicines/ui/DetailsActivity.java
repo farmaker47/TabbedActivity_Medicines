@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import com.george.tabbedactivity_medicines.BuildConfig;
 import com.george.tabbedactivity_medicines.TabbedMainActivity;
+import com.george.tabbedactivity_medicines.databinding.ActivityDetailsBinding;
 import com.george.tabbedactivity_medicines.ui.main.PackageFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
@@ -48,10 +50,12 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     private long downloadID;
     private String nameSpcPdf = "recipe_spc.pdf";
 
+    private ActivityDetailsBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 
         fragmentManager = getSupportFragmentManager();
 
@@ -113,7 +117,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     public void onFragmentInteractionPackage(String string, String string2, String string3) {
 
         Intent intent = new Intent(DetailsActivity.this, IngredientActivity.class);
-        intent.putExtra(NAME_OF_INGREDIENT,string);
+        intent.putExtra(NAME_OF_INGREDIENT, string);
         startActivity(intent);
     }
 

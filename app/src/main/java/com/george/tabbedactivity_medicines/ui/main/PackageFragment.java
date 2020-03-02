@@ -31,11 +31,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.ahmadrosid.svgloader.SvgLoader;
 import com.george.tabbedactivity_medicines.R;
 import com.george.tabbedactivity_medicines.TabbedMainActivity;
+import com.george.tabbedactivity_medicines.databinding.ActivityScrollingDetailsFragmentBinding;
 import com.george.tabbedactivity_medicines.ui.DetailsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
@@ -83,10 +85,7 @@ public class PackageFragment extends Fragment {
     private static final String URL_FOR_PDFs = "https://services.eof.gr";
     private View packageView;
     private String nameFromEntry = "";
-    private String stringForDeletingRow, responseStg, photoPackageCode, tokenToUse, internetInfo = "";
-    private TextView toolBarText, titleTextViewGray, sigentrosiTextView, farmakMorfi, syskeuasia, numberDoses,
-            administrationRoutesTextView, textViewBarcode, textViewEof, textViewHdika, textViewGge, textViewSoloupis, textViewNosok,
-            textViewXondr, textViewLianiki, nomikoKathestos, morfiEofTextView,
+    private TextView titleTextViewGray, farmakMorfi, nomikoKathestos, morfiEofTextView,
             periektikotitaTextView, odosXorigisisTextView, kodikosAtcTextView, perigrafiAtcTextView,
             onomasiaEtairiasTextView, addressEtairiasTextView, tilefonoEtairiasTextView, faxEtairiasTextView,
             mailEtairiasTextView, perilipsiXaraktiristikonTextView, filoOdigionTextView, ekthesiAksiologisisTextView, ingredient, ingredient2;
@@ -139,33 +138,56 @@ public class PackageFragment extends Fragment {
         }
     }
 
+    private ActivityScrollingDetailsFragmentBinding binding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        packageView = inflater.inflate(R.layout.activity_scrolling_details_fragment, container, false);
+        /*packageView = inflater.inflate(R.layout.activity_scrolling_details_fragment, container, false);*/
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_scrolling_details_fragment, container, false);
+
         context = getActivity();
-        farmakMorfi = packageView.findViewById(R.id.farmakMorfi);
-        nomikoKathestos = packageView.findViewById(R.id.nomikoKathestos);
-        morfiEofTextView = packageView.findViewById(R.id.morfiEofTextView);
-        periektikotitaTextView = packageView.findViewById(R.id.periektikotita);
-        odosXorigisisTextView = packageView.findViewById(R.id.odosXorigisisTextView);
-        kodikosAtcTextView = packageView.findViewById(R.id.kodikosAtcTextView);
-        perigrafiAtcTextView = packageView.findViewById(R.id.perigrafiAtcTextView);
-        onomasiaEtairiasTextView = packageView.findViewById(R.id.onomasiaEtairiasTextView);
-        addressEtairiasTextView = packageView.findViewById(R.id.addressEtairiasTextView);
-        tilefonoEtairiasTextView = packageView.findViewById(R.id.tilefonoEtairiasTextView);
-        faxEtairiasTextView = packageView.findViewById(R.id.faxEtairiasTextView);
-        mailEtairiasTextView = packageView.findViewById(R.id.mailEtairiasTextView);
-        perilipsiXaraktiristikonTextView = packageView.findViewById(R.id.perilipsiXaraktiristikonTextView);
-        filoOdigionTextView = packageView.findViewById(R.id.filoOdigionTextView);
-        ekthesiAksiologisisTextView = packageView.findViewById(R.id.ekthesiAksiologisisTextView);
 
-        linearSistatika = packageView.findViewById(R.id.linearSistatika);
+        farmakMorfi = binding.farmakMorfi;
+        /*farmakMorfi = packageView.findViewById(R.id.farmakMorfi);*/
+        nomikoKathestos = binding.nomikoKathestos;
+        /*nomikoKathestos = packageView.findViewById(R.id.nomikoKathestos);*/
+        morfiEofTextView = binding.morfiEofTextView;
+        /*morfiEofTextView = packageView.findViewById(R.id.morfiEofTextView);*/
+        periektikotitaTextView = binding.periektikotita;
+        /*periektikotitaTextView = packageView.findViewById(R.id.periektikotita);*/
+        odosXorigisisTextView = binding.odosXorigisisTextView;
+        /*odosXorigisisTextView = packageView.findViewById(R.id.odosXorigisisTextView);*/
+        kodikosAtcTextView = binding.kodikosAtcTextView;
+        /*kodikosAtcTextView = packageView.findViewById(R.id.kodikosAtcTextView);*/
+        perigrafiAtcTextView = binding.perigrafiAtcTextView;
+        /*perigrafiAtcTextView = packageView.findViewById(R.id.perigrafiAtcTextView);*/
+        onomasiaEtairiasTextView = binding.onomasiaEtairiasTextView;
+        /*onomasiaEtairiasTextView = packageView.findViewById(R.id.onomasiaEtairiasTextView);*/
+        addressEtairiasTextView = binding.addressEtairiasTextView;
+        /*addressEtairiasTextView = packageView.findViewById(R.id.addressEtairiasTextView);*/
+        tilefonoEtairiasTextView = binding.tilefonoEtairiasTextView;
+        /*tilefonoEtairiasTextView = packageView.findViewById(R.id.tilefonoEtairiasTextView);*/
+        faxEtairiasTextView = binding.faxEtairiasTextView;
+        /*faxEtairiasTextView = packageView.findViewById(R.id.faxEtairiasTextView);*/
+        mailEtairiasTextView = binding.mailEtairiasTextView;
+        /*mailEtairiasTextView = packageView.findViewById(R.id.mailEtairiasTextView);*/
+        perilipsiXaraktiristikonTextView = binding.perilipsiXaraktiristikonTextView;
+        /*perilipsiXaraktiristikonTextView = packageView.findViewById(R.id.perilipsiXaraktiristikonTextView);*/
+        filoOdigionTextView = binding.filoOdigionTextView;
+        /*filoOdigionTextView = packageView.findViewById(R.id.filoOdigionTextView);*/
+        ekthesiAksiologisisTextView = binding.ekthesiAksiologisisTextView;
+        /*ekthesiAksiologisisTextView = packageView.findViewById(R.id.ekthesiAksiologisisTextView);*/
 
-        webView = packageView.findViewById(R.id.webViewPackage);
+        linearSistatika = binding.linearSistatika;
+        /*linearSistatika = packageView.findViewById(R.id.linearSistatika);*/
 
-        progressBar = packageView.findViewById(R.id.progressBarPackage);
+        webView = binding.webViewPackage;
+        /*webView = packageView.findViewById(R.id.webViewPackage);*/
+
+        progressBar = binding.progressBarPackage;
+        /*progressBar = packageView.findViewById(R.id.progressBarPackage);*/
 
         //Load dummy image
         detailActivityImage = packageView.findViewById(R.id.detail_activity_image);
@@ -173,8 +195,10 @@ public class PackageFragment extends Fragment {
             Picasso.get().load(R.drawable.recipe_icon).into(detailActivityImage);
         }
 
-        nameFromEntry = getArguments().getString(TabbedMainActivity.NAME_TO_PASS);
-        titleTextViewGray = packageView.findViewById(R.id.titleTextViewGray);
+        nameFromEntry = Objects.requireNonNull(getArguments()).getString(TabbedMainActivity.NAME_TO_PASS);
+
+        titleTextViewGray = binding.titleTextViewGray;
+        /*titleTextViewGray = packageView.findViewById(R.id.titleTextViewGray);*/
         titleTextViewGray.setText(nameFromEntry);
 
 
@@ -182,7 +206,7 @@ public class PackageFragment extends Fragment {
         sharedLogged = sharedPreferences.getBoolean(EntryScreenNavigation.LOGGED_IN, false);
         tokenToUse = sharedPreferences.getString(EntryScreenNavigation.TOKEN_STRING, "");*/
 
-        Toolbar toolbar = packageView.findViewById(R.id.toolbar);
+        Toolbar toolbar = binding.toolbar;
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,7 +294,7 @@ public class PackageFragment extends Fragment {
             }
         });*/
 
-        return packageView;
+        return binding.getRoot();
     }
 
     private void fetchAllInfo() {
@@ -359,6 +383,14 @@ public class PackageFragment extends Fragment {
                     }
                 }
 
+                //If there is no text finish activity
+                if (arrayForTextView.size() == 0) {
+                    Objects.requireNonNull(getActivity()).finish();
+
+                    Toast.makeText(context, R.string.try_again, Toast.LENGTH_LONG).show();
+
+                }
+
                 for (int i = 0; i < arrayForTextView.size(); i++) {
 
                     /*//Creating a view
@@ -424,17 +456,7 @@ public class PackageFragment extends Fragment {
                             .setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    /*if (ingredient2.getVisibility() == View.GONE) {
-
-                                        ingredient2.setVisibility(View.VISIBLE);
-                                        progressBar.setVisibility(View.VISIBLE);
-                                        ingredient2.setText(resultString2);
-
-                                    } else if (ingredient2.getVisibility() == View.VISIBLE) {
-                                        ingredient2.setVisibility(View.GONE);
-                                    }*/
-
-                                    mListener.onFragmentInteractionPackage(arrayForTextView.get(finalI),arrayForTextView.get(finalI),arrayForTextView.get(finalI));
+                                    mListener.onFragmentInteractionPackage(arrayForTextView.get(finalI), arrayForTextView.get(finalI), arrayForTextView.get(finalI));
                                 }
                             });
 

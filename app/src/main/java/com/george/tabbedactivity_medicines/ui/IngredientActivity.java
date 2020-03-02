@@ -289,7 +289,7 @@ public class IngredientActivity extends AppCompatActivity {
                                     .load(builderImage.toString(), imageMeds);
 
                             textViewResults.setText(parsedInfo);
-                            textDrastiki.setText(drastikiGeneral);
+                            textDrastiki.setText(ingredientName);
                             linearDrastiki.setVisibility(View.VISIBLE);
 
                         } else if (builderImage.toString().equals("https://www.drugbank.ca") && isPresent) {
