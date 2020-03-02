@@ -35,4 +35,5 @@
     <string name="serverNew">Server</string>
     <string name="installChrome">Install Chrome browser first to view pdf</string>
     <string name="wait_String">Wait...</string>
+    <string name="drastikiNoResults">No results found.</string>
 </resources>

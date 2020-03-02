@@ -43,7 +43,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     private static final String TAG = "DetailsActivity";
     private static final String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE};
 
-    private static final String NAME_OF_SPC = "recipe_spc.pdf";
+    public static final String NAME_OF_INGREDIENT = "name_of_ingredient";
 
     private long downloadID;
     private String nameSpcPdf = "recipe_spc.pdf";
@@ -112,6 +112,9 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     @Override
     public void onFragmentInteractionPackage(String string, String string2, String string3) {
 
+        Intent intent = new Intent(DetailsActivity.this, IngredientActivity.class);
+        intent.putExtra(NAME_OF_INGREDIENT,string);
+        startActivity(intent);
     }
 
     @Override

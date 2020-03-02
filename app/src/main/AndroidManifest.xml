@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".ui.main.TimberClass"
         android:allowBackup="true"
@@ -16,6 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.IngredientActivity"
+            android:parentActivityName=".ui.DetailsActivity"/>
+
         <provider
             android:name=".ui.download.GenericFileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -45,9 +47,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".ui.download.EofService"
-            android:exported="false" />
     </application>
 
 </manifest>
