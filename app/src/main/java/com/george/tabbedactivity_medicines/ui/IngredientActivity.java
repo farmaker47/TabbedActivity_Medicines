@@ -3,6 +3,7 @@ package com.george.tabbedactivity_medicines.ui;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,11 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmadrosid.svgloader.SvgLoader;
 import com.george.tabbedactivity_medicines.R;
+import com.george.tabbedactivity_medicines.databinding.ActivityIngredientBinding;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.squareup.picasso.Picasso;
 
@@ -50,17 +53,20 @@ public class IngredientActivity extends AppCompatActivity {
     private String drastikiGeneral;
 
     public static boolean isActive = false;
+    private ActivityIngredientBinding ingredientBinding;
+    private ProgressBar ingredientProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingredient);
+        ingredientBinding = DataBindingUtil.setContentView(this, R.layout.activity_ingredient);
 
-        linearDrastiki = findViewById(R.id.linearDrastiki);
-        textDrastiki = findViewById(R.id.textDrastiki);
-        textViewResults = findViewById(R.id.expand_text_view);
-        imageMeds = findViewById(R.id.imageMeds);
-        linearChoice = findViewById(R.id.linearChoice);
+        linearDrastiki = ingredientBinding.linearDrastiki;
+        textDrastiki = ingredientBinding.textDrastiki;
+        textViewResults = ingredientBinding.expandTextView;
+        imageMeds = ingredientBinding.imageMeds;
+        linearChoice = ingredientBinding.linearChoice;
+        ingredientProgressBar = ingredientBinding.progressIngredient;
 
         Intent intent = getIntent();
         if (intent.hasExtra(DetailsActivity.NAME_OF_INGREDIENT)) {
@@ -293,6 +299,7 @@ public class IngredientActivity extends AppCompatActivity {
                             linearDrastiki.setVisibility(View.VISIBLE);
 
                         } else if (builderImage.toString().equals("https://www.drugbank.ca") && isPresent) {
+                            ingredientProgressBar.setVisibility(View.INVISIBLE);
                             Picasso.get().load(R.drawable.recipe_icon).into(imageMeds);
                             textViewResults.setText(getString(R.string.drastikiNoResults));
                             Log.i("LATHOS1", builderImage.toString());

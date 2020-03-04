@@ -383,13 +383,13 @@ public class PackageFragment extends Fragment {
                     }
                 }
 
-                //If there is no text finish activity
+                /*//If there is no text finish activity
                 if (arrayForTextView.size() == 0) {
                     Objects.requireNonNull(getActivity()).finish();
 
                     Toast.makeText(context, R.string.try_again, Toast.LENGTH_LONG).show();
 
-                }
+                }*/
 
                 for (int i = 0; i < arrayForTextView.size(); i++) {
 
