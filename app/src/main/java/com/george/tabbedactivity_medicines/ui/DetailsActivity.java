@@ -51,6 +51,7 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
     private String nameSpcPdf = "recipe_spc.pdf";
 
     private ActivityDetailsBinding binding;
+    private static final String MY_FRAGMENT_TAG = "my_fragment_tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,21 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
             bundle.putString(TabbedMainActivity.NAME_TO_PASS, nameOfDrug);
             packageFragment = new PackageFragment();
             packageFragment.setArguments(bundle);
-            fragmentManager.beginTransaction().add(R.id.containerDetailsFragments, packageFragment).commit();
+            fragmentManager.beginTransaction().add(R.id.containerDetailsFragments, packageFragment, MY_FRAGMENT_TAG).commit();
+        }else{
+            packageFragment = (PackageFragment) fragmentManager.findFragmentByTag(MY_FRAGMENT_TAG);
         }
+
+        /*if (savedInstanceState == null) {
+            myFragment = MyFragment.newInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.my_container, myFragment, MY_FRAGMENT_TAG)
+                    .commit();
+        } else {
+            myFragment = (MyFragment) getSupportFragmentManager()
+                    .findFragmentByTag(MY_FRAGMENT_TAG);
+        }*/
 
         //check internet connection
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -84,14 +98,14 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
             Toast.makeText(DetailsActivity.this, R.string.please_connect_to_internet, Toast.LENGTH_SHORT).show();
         }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         ActivityCompat.requestPermissions(this, PERMISSIONS, 112);
 
@@ -119,11 +133,6 @@ public class DetailsActivity extends AppCompatActivity implements PackageFragmen
         Intent intent = new Intent(DetailsActivity.this, IngredientActivity.class);
         intent.putExtra(NAME_OF_INGREDIENT, string);
         startActivity(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override

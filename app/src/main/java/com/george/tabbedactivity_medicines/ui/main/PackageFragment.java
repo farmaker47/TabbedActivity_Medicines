@@ -150,44 +150,23 @@ public class PackageFragment extends Fragment {
         context = getActivity();
 
         farmakMorfi = binding.farmakMorfi;
-        /*farmakMorfi = packageView.findViewById(R.id.farmakMorfi);*/
         nomikoKathestos = binding.nomikoKathestos;
-        /*nomikoKathestos = packageView.findViewById(R.id.nomikoKathestos);*/
         morfiEofTextView = binding.morfiEofTextView;
-        /*morfiEofTextView = packageView.findViewById(R.id.morfiEofTextView);*/
         periektikotitaTextView = binding.periektikotita;
-        /*periektikotitaTextView = packageView.findViewById(R.id.periektikotita);*/
         odosXorigisisTextView = binding.odosXorigisisTextView;
-        /*odosXorigisisTextView = packageView.findViewById(R.id.odosXorigisisTextView);*/
         kodikosAtcTextView = binding.kodikosAtcTextView;
-        /*kodikosAtcTextView = packageView.findViewById(R.id.kodikosAtcTextView);*/
         perigrafiAtcTextView = binding.perigrafiAtcTextView;
-        /*perigrafiAtcTextView = packageView.findViewById(R.id.perigrafiAtcTextView);*/
         onomasiaEtairiasTextView = binding.onomasiaEtairiasTextView;
-        /*onomasiaEtairiasTextView = packageView.findViewById(R.id.onomasiaEtairiasTextView);*/
         addressEtairiasTextView = binding.addressEtairiasTextView;
-        /*addressEtairiasTextView = packageView.findViewById(R.id.addressEtairiasTextView);*/
         tilefonoEtairiasTextView = binding.tilefonoEtairiasTextView;
-        /*tilefonoEtairiasTextView = packageView.findViewById(R.id.tilefonoEtairiasTextView);*/
         faxEtairiasTextView = binding.faxEtairiasTextView;
-        /*faxEtairiasTextView = packageView.findViewById(R.id.faxEtairiasTextView);*/
         mailEtairiasTextView = binding.mailEtairiasTextView;
-        /*mailEtairiasTextView = packageView.findViewById(R.id.mailEtairiasTextView);*/
         perilipsiXaraktiristikonTextView = binding.perilipsiXaraktiristikonTextView;
-        /*perilipsiXaraktiristikonTextView = packageView.findViewById(R.id.perilipsiXaraktiristikonTextView);*/
         filoOdigionTextView = binding.filoOdigionTextView;
-        /*filoOdigionTextView = packageView.findViewById(R.id.filoOdigionTextView);*/
         ekthesiAksiologisisTextView = binding.ekthesiAksiologisisTextView;
-        /*ekthesiAksiologisisTextView = packageView.findViewById(R.id.ekthesiAksiologisisTextView);*/
-
         linearSistatika = binding.linearSistatika;
-        /*linearSistatika = packageView.findViewById(R.id.linearSistatika);*/
-
         webView = binding.webViewPackage;
-        /*webView = packageView.findViewById(R.id.webViewPackage);*/
-
         progressBar = binding.progressBarPackage;
-        /*progressBar = packageView.findViewById(R.id.progressBarPackage);*/
 
         //Load dummy image
         detailActivityImage = binding.detailActivityImage;
@@ -196,11 +175,8 @@ public class PackageFragment extends Fragment {
         }
 
         nameFromEntry = Objects.requireNonNull(getArguments()).getString(TabbedMainActivity.NAME_TO_PASS);
-
         titleTextViewGray = binding.titleTextViewGray;
-        /*titleTextViewGray = packageView.findViewById(R.id.titleTextViewGray);*/
         titleTextViewGray.setText(nameFromEntry);
-
 
         /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         sharedLogged = sharedPreferences.getBoolean(EntryScreenNavigation.LOGGED_IN, false);
@@ -433,6 +409,7 @@ public class PackageFragment extends Fragment {
                     params2.setMargins(32, 8, 8, 16);
                     ingredient2.setLayoutParams(params2);
                     ingredient2.setTextSize(16);
+                    /*ingredient.setPadding(4, 4, 4, 4);*/
                     ingredient2.setTextColor(Color.GRAY);
                     ingredient2.setVisibility(View.GONE);
                     /*final String resultString2 = pingAndFetchText(DRUGS_CA, arrayForTextView.get(i));*/
@@ -445,6 +422,7 @@ public class PackageFragment extends Fragment {
                     params.setMargins(32, 8, 8, 16);
                     ingredient.setLayoutParams(params);
                     ingredient.setTextSize(18);
+                    ingredient.setPadding(4, 4, 4, 4);
                     ingredient.setPaintFlags(ingredient.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     ingredient.setTextColor(Color.BLUE);
                     //ripple effect
@@ -748,6 +726,8 @@ public class PackageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        titleTextViewGray.setText(nameFromEntry);
 
         /*//Jsoup
         new Thread(new Runnable() {

@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.IngredientActivity"
-            android:parentActivityName=".ui.DetailsActivity"/>
+        <activity
+            android:name=".ui.IngredientActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.DetailsActivity" />
 
         <provider
             android:name=".ui.download.GenericFileProvider"
@@ -32,6 +34,7 @@
             android:name=".ui.DetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_details"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

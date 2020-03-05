@@ -242,6 +242,9 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                 if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                     if (motionEvent.getRawX() >= (editTextView.getRight() - editTextView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
+                        //First click back button
+                        webView.loadUrl("javascript:(function(){l=document.getElementById('form1:btnBack');e=document.createEvent('HTMLEvents');e.initEvent('click',true,true);l.dispatchEvent(e);})()");
+                        //then do process
                         editTextView.setText("");
                         clearDataOfList();
                         showKeyboard();
