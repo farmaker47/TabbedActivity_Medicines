@@ -1,41 +1,41 @@
 <resources>
     <string name="app_name">EOF Search</string>
     <string name="onomasiaProiontos">Medicine\'s name</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_2" translatable="false">Tab 2</string>
     <string name="please_connect_to_internet">No internet connection!</string>
     <string name="search_autocomplete_fragment_hint">Input at least 4 characters</string>
     <string name="transition_photo" translatable="false">transition_photo</string>
     <string name="no_internet">No internet connection!</string>
-    <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_details" translatable="false">DetailsActivity</string>
     <string name="no_results">Try again.. no results found!</string>
-    <string name="kodikos_EOF">Κωδικός ΕΟΦ:</string>
-    <string name="genika">Γενικά:</string>
-    <string name="nomiko_Kathestos">Νομικό καθεστώς:</string>
-    <string name="morfi">Μορφή:</string>
-    <string name="periektikotita">Περιεκτικότητα:</string>
-    <string name="odosXorigisis">Οδός χορήγησης:</string>
-    <string name="farmakologikiKatigoria">Φαρμακολογική(ές) Κατηγορία(ες):</string>
-    <string name="kodikos_ATC">Κωδικός ATC:</string>
-    <string name="perigrafi_ATC">Περιγραφή:</string>
-    <string name="drastikaSistatika">Δραστικά συστατικά:</string>
-    <string name="ypefthinos_kikloforias">Υπεύθυνος κυκλοφορίας:</string>
-    <string name="onomasia_etairias">Ονομασία εταιρείας:</string>
-    <string name="address_etairias">Διεύθυνση εταιρείας:</string>
-    <string name="tilefono_etairias">Τηλέφωνο:</string>
-    <string name="fax_etairias">Φαξ:</string>
-    <string name="e_mail_etairias">e-mail:</string>
+    <string name="kodikos_EOF">EOF code:</string>
+    <string name="genika">General info:</string>
+    <string name="nomiko_Kathestos">Legal status:</string>
+    <string name="morfi">Form:</string>
+    <string name="e_mail_etairias" translatable="false">e-mail:</string>
     <string name="eof_error">Eof server is down..try again later</string>
-    <string name="tekmiriosi">Τεκμηρίωση:</string>
-    <string name="perilipsiXaraktiristikon">Περίληψη Χαρακτηριστικών Προϊόντος:</string>
-    <string name="fyloOdigion">Φύλλο Οδηγιών για το Χρήστη:</string>
-    <string name="ekthesiAksiologisis">"Δημόσια Έκθεση Αξιολόγησης:"</string>
 
     <string name="server_returned_http" translatable="false">Server returned HTTP</string>
     <string name="server" translatable="false">server</string>
-    <string name="serverNew">Server</string>
-    <string name="installChrome">Install Chrome browser first to view pdf</string>
-    <string name="wait_String">Wait...</string>
+    <string name="serverNew" translatable="false">Server</string>
+    <string name="installChrome" translatable="false">Install Chrome browser first to view pdf</string>
+    <string name="wait_String" translatable="false">Wait...</string>
     <string name="drastikiNoResults">No results found.</string>
     <string name="try_again">Try again. Server error!</string>
     <string name="noresultTryBelow">No result. Please try one from below.</string>
+    <string name="periektikotita">Content:</string>
+    <string name="odosXorigisis">Route of administration:</string>
+    <string name="farmakologikiKatigoria">Pharmacological Category(s):</string>
+    <string name="kodikos_ATC">ATC code:</string>
+    <string name="perigrafi_ATC">Description:</string>
+    <string name="drastikaSistatika">Active ingredients:</string>
+    <string name="ypefthinos_kikloforias">Marketing officer:</string>
+    <string name="onomasia_etairias">Company\'s name:</string>
+    <string name="address_etairias">Company\'s address:</string>
+    <string name="tilefono_etairias">Telephone:</string>
+    <string name="fax_etairias">Fax:</string>
+    <string name="tekmiriosi">Medicine\'s leaflets:</string>
+    <string name="perilipsiXaraktiristikon">Product Features Summary:</string>
+    <string name="fyloOdigion">User guide sheet:</string>
+    <string name="ekthesiAksiologisis">Public Evaluation Report:</string>
 </resources>

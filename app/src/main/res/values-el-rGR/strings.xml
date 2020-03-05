@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ΕΟΦ Εύρεση</string>
+    <string name="onomasiaProiontos">Όνομα φαρμάκου</string>
+    <string name="please_connect_to_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="search_autocomplete_fragment_hint">Εισάγετε τουλάχιστον 4 χαρακτήρες</string>
+    <string name="no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
+    <string name="no_results">Ξαναπροσπαθήστε.. δε βρέθηκαν αποτελέσματα!</string>
+    <string name="kodikos_EOF">Κωδικός ΕΟΦ:</string>
+    <string name="nomiko_Kathestos">Νομικό καθεστώς:</string>
+    <string name="genika">Γενικά:</string>
+    <string name="morfi">Μορφή:</string>
+    <string name="periektikotita">Περιεκτικότητα:</string>
+    <string name="odosXorigisis">Οδός χορήγησης:</string>
+    <string name="farmakologikiKatigoria">Φαρμακολογική(ές) Κατηγορία(ες):</string>
+    <string name="kodikos_ATC">Κωδικός ATC:</string>
+    <string name="perigrafi_ATC">Περιγραφή:</string>
+    <string name="drastikaSistatika">Δραστικά συστατικά:</string>
+    <string name="ypefthinos_kikloforias">Υπεύθυνος κυκλοφορίας:</string>
+    <string name="onomasia_etairias">Ονομασία εταιρείας:</string>
+    <string name="address_etairias">Διεύθυνση εταιρείας:</string>
+    <string name="tilefono_etairias">Τηλέφωνο:</string>
+    <string name="fax_etairias">Φαξ:</string>
+    <string name="eof_error">Ο server του ΕΟΦ δεν ανταποκρίνεται.. δοκιμάστε αργότερα.</string>
+    <string name="tekmiriosi">Τεκμηρίωση:</string>
+    <string name="perilipsiXaraktiristikon">Περίληψη Χαρακτηριστικών Προϊόντος:</string>
+    <string name="fyloOdigion">Φύλλο Οδηγιών για το Χρήστη:</string>
+    <string name="ekthesiAksiologisis">Δημόσια Έκθεση Αξιολόγησης:</string>
+    <string name="drastikiNoResults">Δε βρέθηκαν αποτελέσματα.</string>
+    <string name="try_again">Ξαναπροσπαθήστε. Πρόβλημα με το server!</string>
+    <string name="noresultTryBelow">Δε βρέθηκε αποτέλεσμα. Επιλέξτε ένα απο τα παρακάτω:</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EOF Suche</string>
+    <string name="onomasiaProiontos">Name der Medizin</string>
+    <string name="please_connect_to_internet">Keine Internetverbindung!</string>
+    <string name="search_autocomplete_fragment_hint">Geben Sie mindestens 4 Zeichen ein</string>
+    <string name="no_internet">Keine Internetverbindung!</string>
+    <string name="no_results">Versuchen Sie es erneut. Keine Ergebnisse gefunden!</string>
+    <string name="kodikos_EOF">EOF-Code:</string>
+    <string name="nomiko_Kathestos">Rechtsstellung:</string>
+    <string name="genika">Allgemeine Information:</string>
+    <string name="morfi">Bilden:</string>
+    <string name="periektikotita">Inhalt:</string>
+    <string name="odosXorigisis">Verabreichungsweg:</string>
+    <string name="farmakologikiKatigoria">Pharmakologische Kategorie (n):</string>
+    <string name="kodikos_ATC">ATC code:</string>
+    <string name="perigrafi_ATC">Beschreibung:</string>
+    <string name="drastikaSistatika">Wirksame Bestandteile:</string>
+    <string name="ypefthinos_kikloforias">Verkaufsleiter:</string>
+    <string name="onomasia_etairias">Firmenname:</string>
+    <string name="address_etairias">Firmenadresse:</string>
+    <string name="tilefono_etairias">Telefon:</string>
+    <string name="fax_etairias">Fax:</string>
+    <string name="eof_error">Eof Server ist ausgefallen. Versuchen Sie es später erneut</string>
+    <string name="tekmiriosi">Packungsbeilagen der Medizin:</string>
+    <string name="perilipsiXaraktiristikon">Zusammenfassung der Produktmerkmale:</string>
+    <string name="fyloOdigion">Benutzerhandbuch:</string>
+    <string name="ekthesiAksiologisis">Öffentlicher Bewertungsbericht:</string>
+    <string name="drastikiNoResults">Keine Ergebnisse gefunden.</string>
+    <string name="try_again">Versuch es noch einmal. Serverfehler!</string>
+    <string name="noresultTryBelow">Kein Ergebnis. Bitte versuchen Sie es von unten.</string>
+</resources>

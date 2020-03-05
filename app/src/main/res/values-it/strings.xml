@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ricerca EOF</string>
+    <string name="onomasiaProiontos">Nome della medicina</string>
+    <string name="please_connect_to_internet">Nessuna connessione internet!</string>
+    <string name="search_autocomplete_fragment_hint">Inserisci almeno 4 caratteri</string>
+    <string name="no_internet">Nessuna connessione internet!</string>
+    <string name="no_results">Riprova .. nessun risultato trovato!</string>
+    <string name="kodikos_EOF">Codice EOF:</string>
+    <string name="nomiko_Kathestos">Status giuridico:</string>
+    <string name="genika">Informazioni generali:</string>
+    <string name="morfi">Modulo:</string>
+    <string name="periektikotita">Soddisfare:</string>
+    <string name="odosXorigisis">Via di somministrazione:</string>
+    <string name="farmakologikiKatigoria">Categoria i farmacologica:</string>
+    <string name="kodikos_ATC">Codice ATC:</string>
+    <string name="perigrafi_ATC">Descrizione:</string>
+    <string name="drastikaSistatika">Ingredienti attivi:</string>
+    <string name="ypefthinos_kikloforias">Agente di marketing:</string>
+    <string name="onomasia_etairias">Nome dell\'azienda:</string>
+    <string name="address_etairias">Indirizzo dell\'azienda:</string>
+    <string name="tilefono_etairias">Telefono:</string>
+    <string name="fax_etairias">Fax:</string>
+    <string name="eof_error">Il server Eof \è inattivo … di nuovo pi\ù tardi</string>
+    <string name="tekmiriosi">Opuscoli di medicina:</string>
+    <string name="perilipsiXaraktiristikon">Riepilogo delle caratteristiche del prodotto:</string>
+    <string name="fyloOdigion">Foglio guida per l\'utente:</string>
+    <string name="ekthesiAksiologisis">Rapporto di valutazione pubblica:</string>
+    <string name="drastikiNoResults">Nessun risultato trovato.</string>
+    <string name="try_again">Riprova. Errore del server!</string>
+    <string name="noresultTryBelow">Nessun risultato. Si prega di provare uno dal basso.</string>
+</resources>
