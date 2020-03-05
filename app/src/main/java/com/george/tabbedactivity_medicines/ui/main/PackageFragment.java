@@ -190,7 +190,7 @@ public class PackageFragment extends Fragment {
         /*progressBar = packageView.findViewById(R.id.progressBarPackage);*/
 
         //Load dummy image
-        detailActivityImage = packageView.findViewById(R.id.detail_activity_image);
+        detailActivityImage = binding.detailActivityImage;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Picasso.get().load(R.drawable.recipe_icon).into(detailActivityImage);
         }

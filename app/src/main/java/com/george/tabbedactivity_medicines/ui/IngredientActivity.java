@@ -104,14 +104,12 @@ public class IngredientActivity extends AppCompatActivity {
                 HashMap<String, String> cookies = new HashMap<>();
                 try {
                     if (url.equals("https://www.drugbank.ca/drugs")) {
-                        Log.e("INPUT", "input");
                         Connection.Response loginFormResponse = Jsoup.connect(DRUGS_CA)
                                 .method(Connection.Method.GET)
                                 .userAgent("Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36")
                                 .execute();
 
                         cookies.putAll(loginFormResponse.cookies());
-                        Log.e(TAG, cookies.toString());
                         //find the form
                         FormElement loginForm = (FormElement) loginFormResponse.parse()
                                 .select(".form-inline").first();
@@ -119,7 +117,6 @@ public class IngredientActivity extends AppCompatActivity {
                         //fill info in element
                         if (loginForm != null) {
                             Element loginField = loginForm.select(".search-query").first();
-                            Log.e(TAG, loginField.toString());
                             if (loginField != null) {
                                 loginField.val(ingredientName);
                             }
@@ -137,11 +134,8 @@ public class IngredientActivity extends AppCompatActivity {
                             builderImage.append("https://www.drugbank.ca");
 
                             Document doc = loginActionResponse.parse();
-                            Log.e("INPUT", doc.toString());
-                            Log.e("INPUT", loginActionResponse.toString());
                             //check if table exists
                             if (checkElement(doc.select("a[class=moldbi-vector-thumbnail]").first())) {
-                                Log.e("INPUT", "image");
                                 Elements imageUrl = doc.select("a[class=moldbi-vector-thumbnail]");
                                 for (Element element : imageUrl) {
                                     parsedText = element.attr("href");
@@ -152,7 +146,6 @@ public class IngredientActivity extends AppCompatActivity {
                                 Elements tag = doc.getElementsByTag("p");
 
                                 for (Element element : tag) {
-                                    Log.e("Escitalopram", element.text());
                                     String text = element.text();
                                     arrayForTextView.add(text);
                                 }
@@ -289,6 +282,7 @@ public class IngredientActivity extends AppCompatActivity {
                     public void run() {
 
                         if (!builderImage.toString().equals("https://www.drugbank.ca")) {
+                            ingredientProgressBar.setVisibility(View.INVISIBLE);
                             SvgLoader.pluck()
                                     .with(IngredientActivity.this)
                                     .setPlaceHolder(R.drawable.recipe_icon, R.drawable.recipe_icon)
@@ -307,10 +301,11 @@ public class IngredientActivity extends AppCompatActivity {
                             linearDrastiki.setVisibility(View.VISIBLE);
 
                         } else if (builderImage.toString().equals("https://www.drugbank.ca") && !isPresent) {
+                            ingredientProgressBar.setVisibility(View.INVISIBLE);
                             Picasso.get().load(R.drawable.recipe_icon).into(imageMeds);
-                            textDrastiki.setText(drastikiGeneral);
+                            textDrastiki.setText(ingredientName);
                             Log.i("LATHOS2", builderImage.toString());
-                            textViewResults.setText("No results. Please try again!");
+                            textViewResults.setText(getString(R.string.noresultTryBelow));
 
                             for (int i = 0; i < arrayForChoiceUrl.size(); i++) {
                                 final String name = arrayForChoiceText.get(i);
@@ -324,18 +319,19 @@ public class IngredientActivity extends AppCompatActivity {
                                 params.setMargins(8, 8, 8, 8);
                                 ingredient.setLayoutParams(params);
                                 ingredient.setTextSize(18);
-                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                                    ingredient.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                }
+                                ingredient.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 ingredient.setPaintFlags(ingredient.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                                 ingredient.setTextColor(Color.BLUE);
+                                final int finalI = i;
                                 ingredient
                                         .setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                Toast.makeText(IngredientActivity.this, builderImage.toString() + url, Toast.LENGTH_SHORT).show();
-                                                drastikiGeneral = name;
-                                                pingAndGet(builderImage.toString() + urlText);
+                                                /*Toast.makeText(IngredientActivity.this,  urlText, Toast.LENGTH_LONG).show();*/
+                                                ingredientName = arrayForChoiceText.get(finalI);
+                                                ingredientProgressBar.setVisibility(View.VISIBLE);
+                                                imageMeds.setImageDrawable(null);
+                                                pingAndGet(DRUGS_CA);
                                                 linearChoice.removeAllViews();
 
                                             }

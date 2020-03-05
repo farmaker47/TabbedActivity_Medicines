@@ -37,4 +37,5 @@
     <string name="wait_String">Wait...</string>
     <string name="drastikiNoResults">No results found.</string>
     <string name="try_again">Try again. Server error!</string>
+    <string name="noresultTryBelow">No result. Please try one from below.</string>
 </resources>
