@@ -183,9 +183,9 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 // user is typing: reset already started timer (if existing)
-                if (timer != null) {
+                /*if (timer != null) {
                     timer.cancel();
-                }
+                }*/
 
             }
 
@@ -225,7 +225,7 @@ public class SearchFragmentNavigation extends Fragment implements SearchFragment
                             }
 
                         }
-                    }, 900);
+                    }, 2900);
                 }
             }
         });

@@ -14,7 +14,6 @@
     <string name="morfi">Form:</string>
     <string name="e_mail_etairias" translatable="false">e-mail:</string>
     <string name="eof_error">Eof server is down..try again later</string>
-
     <string name="server_returned_http" translatable="false">Server returned HTTP</string>
     <string name="server" translatable="false">server</string>
     <string name="serverNew" translatable="false">Server</string>

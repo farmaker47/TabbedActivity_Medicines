@@ -21,8 +21,7 @@ public class SearchFragmentNavigationAdapter extends RecyclerView.Adapter<Search
     private ArrayList<String> hitsList;
     private SearchClickItemListener mSearchClickItemListener;
 
-
-    public SearchFragmentNavigationAdapter(Context context, ArrayList<String> list, SearchClickItemListener listener) {
+    SearchFragmentNavigationAdapter(Context context, ArrayList<String> list, SearchClickItemListener listener) {
         mContext = context;
         hitsList = list;
         mSearchClickItemListener = listener;
@@ -35,7 +34,6 @@ public class SearchFragmentNavigationAdapter extends RecyclerView.Adapter<Search
     @NonNull
     @Override
     public NavigationAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-
         return new NavigationAdapterViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.search_fragment_adapter, parent, false));
     }
@@ -47,7 +45,6 @@ public class SearchFragmentNavigationAdapter extends RecyclerView.Adapter<Search
         holder.textViewHolder.setText(hitsList.get(position));
         holder.imageViewHolder.setImageDrawable(mContext.getResources().
                 getDrawable(R.drawable.medicine));
-
 
     }
 

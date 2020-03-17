@@ -3,7 +3,7 @@
     <string name="app_name">ΕΟΦ Εύρεση</string>
     <string name="onomasiaProiontos">Όνομα φαρμάκου</string>
     <string name="please_connect_to_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
-    <string name="search_autocomplete_fragment_hint">Εισάγετε τουλάχιστον 4 χαρακτήρες</string>
+    <string name="search_autocomplete_fragment_hint">Εισάγετε τουλ. 4 χαρακτήρες</string>
     <string name="no_internet">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
     <string name="no_results">Ξαναπροσπαθήστε.. δε βρέθηκαν αποτελέσματα!</string>
     <string name="kodikos_EOF">Κωδικός ΕΟΦ:</string>
